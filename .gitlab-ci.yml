@@ -1,0 +1,41 @@
+build-all:
+  stage: build
+  script:
+  - apt-get update -y > /dev/null
+  - apt-get install -y git php5-dev sudo > /dev/null
+  - git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP.git
+  - cd PHP-CPP && make release && make install && cd ..
+  - make
+  - make test
+  - make clean
+  - apt-get install -y libboost-thread-dev > /dev/null
+  - make THREAD_SAFE=1
+  - make test
+  - make clean
+  - make NATIVE_FILE=1
+  - make test
+  - make clean
+  - apt-get install -y libboost-regex-dev > /dev/null
+  - make THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1
+  - make install
+  - php5enmod gottext
+  - make test_installed
+  - php5dismod gottext
+  - make uninstall
+  only:
+  - master
+
+pages:
+  script:
+  - apt-get update -y > /dev/null
+  - apt-get install -y php5-cli > /dev/null
+  - wget http://apigen.org/apigen.phar -O /usr/local/bin/apigen
+  - chmod a+x /usr/local/bin/apigen
+  - make doc
+  - mkdir public
+  - cp -r doc/api public/
+  artifacts:
+    paths:
+    - public
+  only:
+  - master

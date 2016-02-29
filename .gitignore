@@ -1,0 +1,17 @@
+*
+
+!*/
+
+!*.h
+!*.cpp
+!Makefile
+!*.mk
+
+!*.php
+
+!*.md
+!LICENSE
+
+.*
+!.gitignore
+!*.yml
