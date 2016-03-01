@@ -1,4 +1,4 @@
-include src/symver.mk
+include src/semver.mk
 
 ######
 
