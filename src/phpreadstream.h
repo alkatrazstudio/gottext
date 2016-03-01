@@ -39,8 +39,8 @@ public:
 
 protected:
     Php::Value f; /*!< file handle returned by PHP's fopen(). */
-    std::string buffer;
-    int64_t realPos;
+    std::string buffer; /*!< read buffer */
+    int64_t realPos; /*!< actual read position in *f* */
 
     /*!
      * Converts the last PHP error/warning into Exception.
