@@ -117,11 +117,11 @@ std::streampos PhpReadBuffer::seekoff(std::streamoff off, std::ios_base::seekdir
 }
 
 PhpReadStream::PhpReadStream(const std::string &filename) :
-    std::istream(new PhpReadBuffer(filename))
+    std::istream(&buffer), // Passing an uninitialized object here,
+                           // but it's ok since std::istream's constructor
+                           // does not perform any operations on the underlying std::streambuf.
+    buffer(filename) // This buffer will be destroyed before the parent std::istream object,
+                     // but it's ok since std::istream's destructor
+                     // does not perform any operations on the underlying std::streambuf.
 {
-}
-
-PhpReadStream::~PhpReadStream()
-{
-    delete rdbuf();
 }

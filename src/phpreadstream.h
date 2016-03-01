@@ -75,5 +75,8 @@ class PhpReadStream : public std::istream
 public:
     PhpReadStream() = delete;
     explicit PhpReadStream(const std::string& filename);
-    virtual ~PhpReadStream();
+    virtual ~PhpReadStream(){}
+
+private:
+    PhpReadBuffer buffer; /*!< the underlying buffer */
 };
