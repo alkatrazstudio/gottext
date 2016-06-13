@@ -102,7 +102,7 @@ install:
 		${MKDIR} ${INI_DIR}; \
 		${CP} ${SRC_DIR}/${INI} ${INI_DIR}/; \
 	fi
-	
+
 .PHONY: uninstall
 uninstall:
 	${RM} ${EXTENSION_DIR}/${EXTENSION}
