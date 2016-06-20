@@ -4,6 +4,13 @@ ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 date_default_timezone_set("UTC");
 
+$cfg = ini_get("zend.assertions");
+if($cfg !== FALSE && $cfg != 1)
+{
+    echo "Set zend.assertions = 1\n";
+    exit(2);
+}
+
 assert_options(ASSERT_CALLBACK,
     function($script, $line, $message, $custom = "") {
         echo "Line ", $line;

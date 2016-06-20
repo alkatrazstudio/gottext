@@ -142,11 +142,11 @@ clean:
 
 .PHONY: test
 test:
-	php -dextension=./${EXTENSION} ${TEST_FILE}
+	php -dzend.assertions=1 -dextension=./${EXTENSION} ${TEST_FILE}
 
 .PHONY: test_installed
 test_installed:
-	php ${TEST_FILE}
+	php -dzend.assertions=1 ${TEST_FILE}
 
 .PHONY: doc
 doc: ${DOC_DIR_API}/index.html
