@@ -5,6 +5,37 @@ include src/semver.mk
 NAME := gottext
 TITLE := GotText
 
+CD := cd
+CP := cp -R
+RM := rm -f
+MKDIR := mkdir -p
+ECHO := echo
+SED := sed
+PHPCONFIG := php-config
+
+PHP_VER ?= $(shell ${PHPCONFIG} --version)
+PHP_VER_SHORT := $(shell ${ECHO} "${PHP_VER}" | ${SED} -e 's/\./ /g')
+PHP_VER_MAJ := $(word 1, ${PHP_VER_SHORT})
+PHP_VER_MIN := $(word 2, ${PHP_VER_SHORT})
+
+ifeq (${PHP_VER_MAJ},)
+	$(error Cannot determine the major version of PHP)
+endif
+ifeq (${PHP_VER_MIN},)
+	$(error Cannot determine the minor version of PHP)
+endif
+ifeq (${PHP_VER_MAJ}, 7)
+	PHPENMOD := phpenmod
+	MODS_SUBDIR := php/${PHP_VER_MAJ}.${PHP_VER_MIN}
+else
+	ifeq (${PHP_VER_MAJ}, 5)
+		PHPENMOD := php5enmod
+		MODS_SUBDIR := php5
+	else
+		$(error Unsupported PHP version: ${PHP_VER_MAJ}.${PHP_VER_MIN})
+	endif
+endif
+
 SRC_DIR := src
 TEST_FILE := test/test.php
 DOC_DIR := doc
@@ -12,12 +43,12 @@ DOC_DIR_SOURCE := ${DOC_DIR}/source
 DOC_DIR_API := ${DOC_DIR}/api
 
 EXTENSION := ${NAME}.so
-EXTENSION_DIR := $(shell php-config --extension-dir)
+EXTENSION_DIR := $(shell ${PHPCONFIG} --extension-dir)
 
 INI := ${NAME}.ini
 ifndef INI_DIR
-	ifneq ($(shell which php5enmod 2>/dev/null),)
-		INI_DIR := /etc/php5/mods-available
+	ifneq ($(shell which ${PHPENMOD} 2>/dev/null),)
+		INI_DIR := /etc/${MODS_SUBDIR}/mods-available
 	else
 		ifeq ($(shell test -d /etc/php.d && echo 1), 1)
 			INI_DIR := /etc/php.d
@@ -43,6 +74,9 @@ DEFINES += \
 	VER_MIN=${VER_MIN} \
 	VER_PAT=${VER_PAT} \
 	VERSION_STR=\"${VER_MAJ}.${VER_MIN}.${VER_PAT}\" \
+	PHP_VER_MAJ=${PHP_VER_MAJ} \
+	PHP_VER_MIN=${PHP_VER_MIN} \
+	PHP_VERSION_STR=\"${PHP_VER_MAJ}.${PHP_VER_MIN}\" \
 	BUILD_TIMESTAMP=${BUILDTIME}
 
 ifdef THREAD_SAFE
@@ -75,12 +109,6 @@ ifdef BOOST_REGEX
 endif
 
 OBJECTS := $(SOURCES:%.cpp=%.o)
-
-CD := cd
-CP := cp -R
-RM := rm -f
-MKDIR := mkdir -p
-ECHO := echo
 
 ######
 
