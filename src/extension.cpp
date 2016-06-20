@@ -431,46 +431,46 @@ extern "C" PHPCPP_EXPORT void *get_module()
     static Php::Extension extension("gottext", VERSION_STR);
 
     Php::Class<GotTextExtension> gotTextClass("GotText");
-    gotTextClass.method("getInfo", &GotTextExtension::getInfo);
-    gotTextClass.method("__construct", &GotTextExtension::__construct, {
+    gotTextClass.method<&GotTextExtension::getInfo>("getInfo");
+    gotTextClass.method<&GotTextExtension::__construct>("__construct", {
         Php::ByVal("filename", Php::Type::String, false),
         Php::ByVal("data", Php::Type::String, false)
     });
-    gotTextClass.method("reload", &GotTextExtension::reload, {
+    gotTextClass.method<&GotTextExtension::reload>("reload", {
         Php::ByVal("filename", Php::Type::String, true)
     });
-    gotTextClass.method("unload", &GotTextExtension::unload, {
+    gotTextClass.method<&GotTextExtension::unload>("unload", {
         Php::ByVal("filename", Php::Type::String, true)
     });
-    gotTextClass.method("get", &GotTextExtension::get, {
+    gotTextClass.method<&GotTextExtension::get>("get", {
         Php::ByVal("filename", Php::Type::String, true)
     });
-    gotTextClass.method("isDummy", &GotTextExtension::isDummy);
-    gotTextClass.method("_", &GotTextExtension::_, {
+    gotTextClass.method<&GotTextExtension::isDummy>("isDummy");
+    gotTextClass.method<&GotTextExtension::_>("_", {
         Php::ByVal("msgid", Php::Type::String, true)
     });
-    gotTextClass.method("_n", &GotTextExtension::_n, {
+    gotTextClass.method<&GotTextExtension::_n>("_n", {
         Php::ByVal("msgid", Php::Type::String, true),
         Php::ByVal("msgid_plural", Php::Type::String, true),
         Php::ByVal("n", Php::Type::Numeric, true)
     });
-    gotTextClass.method("_p", &GotTextExtension::_p, {
+    gotTextClass.method<&GotTextExtension::_p>("_p", {
         Php::ByVal("msgid_ctxt", Php::Type::String, true),
         Php::ByVal("msgid", Php::Type::String, true)
     });
-    gotTextClass.method("_np", &GotTextExtension::_np, {
+    gotTextClass.method<&GotTextExtension::_np>("_np", {
         Php::ByVal("msgid_ctxt", Php::Type::String, true),
         Php::ByVal("msgid", Php::Type::String, true),
         Php::ByVal("msgid_plural", Php::Type::String, true),
         Php::ByVal("n", Php::Type::Numeric, true)
     });
-    gotTextClass.method("getTimeCached", &GotTextExtension::getTimeCached);
-    gotTextClass.method("getFilename", &GotTextExtension::getFilename);
-    gotTextClass.method("getLocaleCode", &GotTextExtension::getLocaleCode);
-    gotTextClass.method("getPluralsCount", &GotTextExtension::getPluralsCount);
-    gotTextClass.method("getStrings", &GotTextExtension::getStrings);
-    gotTextClass.method("getFilenames", &GotTextExtension::getFilenames);
-    gotTextClass.method("pluralFunc", &GotTextExtension::pluralFunc, {
+    gotTextClass.method<&GotTextExtension::getTimeCached>("getTimeCached");
+    gotTextClass.method<&GotTextExtension::getFilename>("getFilename");
+    gotTextClass.method<&GotTextExtension::getLocaleCode>("getLocaleCode");
+    gotTextClass.method<&GotTextExtension::getPluralsCount>("getPluralsCount");
+    gotTextClass.method<&GotTextExtension::getStrings>("getStrings");
+    gotTextClass.method<&GotTextExtension::getFilenames>("getFilenames");
+    gotTextClass.method<&GotTextExtension::pluralFunc>("pluralFunc", {
         Php::ByVal("n", Php::Type::Numeric, true)
     });
 
