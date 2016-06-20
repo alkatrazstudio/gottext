@@ -133,11 +133,11 @@ public:
         Php::Value dicts;
         dicts["singular"] = umapToVal(thisLang.dictOne);
         dicts["plural"] = umapToVal(thisLang.dictNum);
-        Php::Value dict;
+        Php::Value dict(Php::Type::Array);
         for(auto& i : thisLang.dictCtxOne)
             dict[i.first] = umapToVal(i.second);
         dicts["singular_context"] = std::move(dict);
-        dict = Php::Value();
+        dict = Php::Value(Php::Type::Array);
         for(auto& i : thisLang.dictCtxNum)
             dict[i.first] = umapToVal(i.second);
         dicts["plural_context"] = std::move(dict);
@@ -416,7 +416,7 @@ protected:
     template<typename T>
     Php::Value umapToVal(const std::unordered_map<std::string, T>& map) const
     {
-        Php::Value v;
+        Php::Value v(Php::Type::Array);
         for(auto& i : map)
             v[i.first] = Php::Value(i.second);
         return v;
