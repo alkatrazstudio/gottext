@@ -1,8 +1,9 @@
-build-all:
+build-php7:
   stage: build
+  image: ubuntu:16.04
   script:
   - apt-get update -y > /dev/null
-  - apt-get install -y git php5-dev sudo > /dev/null
+  - apt-get install -y git php-dev sudo > /dev/null
   - git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP.git
   - cd PHP-CPP && make release && make install && cd ..
   - make
@@ -18,18 +19,37 @@ build-all:
   - apt-get install -y libboost-regex-dev > /dev/null
   - make THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1
   - make install
-  - php5enmod gottext
+  - phpenmod gottext
   - make test_installed
-  - php5dismod gottext
+  - phpdismod gottext
+  - make uninstall
+  only:
+  - master
+
+build-php5:
+  stage: build
+  image: centos:7
+  script:
+  - yum -y install sudo which git gcc-c++ make php-devel boost-devel > /dev/null
+  - git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP-LEGACY.git
+  - sed -i.bak '/requiretty/d' /etc/sudoers
+  - cd PHP-CPP-LEGACY && make release && make install && cd ..
+  - make BOOST_REGEX=1
+  - make test
+  - make clean
+  - make THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1
+  - make install
+  - make test_installed
   - make uninstall
   only:
   - master
 
 pages:
+  image: debian:jessie
   script:
   - apt-get update -y > /dev/null
-  - apt-get install -y php5-cli > /dev/null
-  - wget http://apigen.org/apigen.phar -O /usr/local/bin/apigen
+  - apt-get install -y php5-dev wget git > /dev/null
+  - wget --no-verbose http://apigen.org/apigen.phar -O /usr/local/bin/apigen
   - chmod a+x /usr/local/bin/apigen
   - make doc
   - mkdir public
