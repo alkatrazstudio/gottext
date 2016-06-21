@@ -13,6 +13,8 @@ ECHO := echo
 SED := sed
 PHPCONFIG := php-config
 
+VER_PAT := $(shell git rev-list HEAD ^$(shell git log --pretty=format:%H -1 src/semver.mk) --count src/*.h src/*.cpp)
+
 PHP_VER ?= $(shell ${PHPCONFIG} --version)
 PHP_VER_SHORT := $(shell ${ECHO} "${PHP_VER}" | ${SED} -e 's/\./ /g')
 PHP_VER_MAJ := $(word 1, ${PHP_VER_SHORT})
