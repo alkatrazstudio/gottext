@@ -23,6 +23,7 @@ build-php7:
   - make test_installed
   - phpdismod gottext
   - make uninstall
+  - cd PHP-CPP && make uninstall && cd ..
   only:
   - master
 
