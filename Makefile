@@ -139,7 +139,10 @@ install:
 .PHONY: uninstall
 uninstall:
 	${RM} ${EXTENSION_DIR}/${EXTENSION}
-	${RM} ${INI_DIR}/${INI}
+	if [ "${INI_DIR}" ]; \
+	then \
+		${RM} ${INI_DIR}/${INI}; \
+	fi
 
 .PHONY: clean
 clean:
