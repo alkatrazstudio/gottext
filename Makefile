@@ -62,7 +62,7 @@ ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 		LINKER := ${COMPILER}
 	endif
 
-	COMPILER_FLAGS := -c -fPIC -std=c++0x -Wall
+	COMPILER_FLAGS := -c -fPIC -std=c++11 -Wall
 	LINKER_FLAGS := -shared
 
 	BUILDTIME := $(shell date +'%s')
