@@ -46,10 +46,10 @@ build-php5:
   - master
 
 pages:
-  image: debian:jessie
+  image: ubuntu:14.04
   script:
   - apt-get update -y > /dev/null
-  - apt-get install -y php5-dev wget git > /dev/null
+  - apt-get install -y wget make php5-cli > /dev/null
   - wget --no-verbose http://apigen.org/apigen.phar -O /usr/local/bin/apigen
   - chmod a+x /usr/local/bin/apigen
   - make doc
