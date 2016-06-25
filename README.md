@@ -5,9 +5,9 @@ GotText is an alternative to [PHP's gettext](https://secure.php.net/manual/book.
 GotText is not a drop-in replacement for gettext,
 so read the below notes and [documentation](https://alkatrazstudio.gitlab.io/gottext/api/) before trying to use this extension.
 
-The current version of GotText PHP extension is only for PHP 5 on Linux.
+The current version of GotText PHP extension is for PHP 7 and PHP 5 on Linux.
 
-This extension is built using [PHP-CPP](http://www.php-cpp.com/) framework.
+This extension is built using [PHP-CPP](http://www.php-cpp.com/) framework. The [main repository](https://github.com/CopernicaMarketingSoftware/PHP-CPP) of PHP-CPP is for PHP 7 only. If you want to build GotText for PHP 5 you need to use [PHP-CPP-LEGACY](https://github.com/CopernicaMarketingSoftware/PHP-CPP-LEGACY) repository.
 
 
 
@@ -157,11 +157,11 @@ Installing from source
 
 __NOTE:__ At the time of writing, PHP-CPP installation process (`make install`) explicitly required the presense of `sudo` command.
 
-Instructions for Debian 8.3 (Jessie):
+Instructions for Ubuntu 16.04 (Xenial Xerus), PHP 7:
 
 ```bash
 # install Git and PHP development files
-sudo apt-get update && sudo apt-get install git php5-dev
+sudo apt update && sudo apt install git php-dev
 
 # get the source code of PHP-CPP, the helper library
 git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP.git
@@ -177,10 +177,33 @@ git clone https://gitlab.com/alkatrazstudio/gottext.git
 cd gottext && make && sudo make install && cd ..
 
 # enable GotText PHP extension
+sudo phpenmod gottext
+```
+
+Instructions for Debian 8 (Jessie), PHP 5:
+
+```bash
+# install Git and PHP development files
+sudo apt update && sudo apt install git php5-dev
+
+# get the source code of PHP-CPP-LEGACY, the helper library
+git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP-LEGACY.git
+
+# build and install PHP-CPP-LEGACY
+cd PHP-CPP-LEGACY && make release && sudo make install && cd ..
+
+# get the source code of GotText
+git clone https://gitlab.com/alkatrazstudio/gottext.git
+
+# build and install GotText with default options;
+# see the comments below for a full list of build options
+cd gottext && make && sudo make install && cd ..
+
+# enable GotText PHP extension
 sudo php5enmod gottext
 ```
 
-Instructions for CentOS 7.2:
+Instructions for CentOS 7.2, PHP 5:
 
 ```bash
 # install Git, build tools and PHP development files;
@@ -188,11 +211,11 @@ Instructions for CentOS 7.2:
 # so we need to use Boost.Regex instead
 yum install which git gcc-c++ make php-devel boost-devel
 
-# get the source code of PHP-CPP, the helper library
-git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP.git
+# get the source code of PHP-CPP-LEGACY, the helper library
+git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP-LEGACY.git
 
-# build and install PHP-CPP
-cd PHP-CPP && make release && sudo make install && cd ..
+# build and install PHP-CPP-LEGACY
+cd PHP-CPP-LEGACY && make release && sudo make install && cd ..
 
 # get the source code of GotText
 git clone https://gitlab.com/alkatrazstudio/gottext.git
@@ -205,14 +228,15 @@ cd gottext && make BOOST_REGEX=1 && sudo make install && cd ..
 # ini file location: /etc/php.d/gottext.ini
 ```
 
-You then also may need to restart your web server after the installation if needed.
+You then also may need to restart your web server and/or PHP process manager (e.g. PHP-FPM) after the installation if needed.
 
 When invoking `make` to build GotText you may specify the following options:
 
-* `THREAD_SAFE=1` - build a thread-safe version of GotText. By default, GotText is not thread-safe. If you enable this option then you'll also have to install [Boost.Thread](http://www.boost.org/doc/libs/master/doc/html/thread.html): `sudo apt-get install libboost-thread-dev` for Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
+* `THREAD_SAFE=1` - build a thread-safe version of GotText. By default, GotText is not thread-safe. If you enable this option then you'll also have to install [Boost.Thread](http://www.boost.org/doc/libs/master/doc/html/thread.html): `sudo apt-get install libboost-thread-dev` for Ubuntu/Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
 * `NATIVE_FILE=1` - instruct GotText to use a native API for reading files. By default, GotText reads files using PHP functions (fopen, fread, ...).
 * `DEBUG=1` - build a debug version of the extension
-* `BOOST_REGEX=1` - use [Boost.Regex](http://www.boost.org/doc/libs/master/libs/regex/doc/html/index.html) instead of std::regex. Use this option when your version of GCC does not support regular expressions (GCC < 4.9.0). If you enable this option then you'll also have to install Boost.Regex: `sudo apt-get install libboost-regex-dev` for Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
+* `BOOST_REGEX=1` - use [Boost.Regex](http://www.boost.org/doc/libs/master/libs/regex/doc/html/index.html) instead of std::regex. Use this option when your version of GCC does not support regular expressions (GCC < 4.9.0). If you enable this option then you'll also have to install Boost.Regex: `sudo apt-get install libboost-regex-dev` for Ubuntu/Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
+* `PHP_VER=x.y` - use PHP version x.y instead of the auto-detected one. This is for internal development only.
 
 You may combine these options. For example, to install a debug thread-safe version of GotText that uses native file reading functions, run the following:
 
@@ -229,13 +253,15 @@ Uninstall
 
 To uninstall the extension, issue the following commands:
 ```bash
-sudo php5dismod gottext # if applicable for your OS
+sudo phpdismod gottext # for PHP 5 use php5dismod if available
 cd <path-to-gottext-repository-root>
 sudo make uninstall
+cd <path-to-PHP-CPP-repository-root>
+sudo make uninstall
 ```
-Then restart your web-server if needed.
+Then restart your web-server and/or PHP process manager if needed.
 
-At the time of writing, PHP-CPP did not provide any means to uninstall itself via `make`.
+At the time of writing, PHP-CPP-LEGACY did not provide any means to uninstall itself via `make`.
 
 
 
@@ -244,7 +270,7 @@ Documentation
 
 You can find the full documentation at https://alkatrazstudio.gitlab.io/gottext/api/.
 
-The GotText docs are built with [apigen](http://www.apigen.org/). To build or modify a local copy of the documentation follow these steps:
+The GotText docs are built with [apigen](http://www.apigen.org/). At the time of writing, apigen only supported PHP 5. To build or modify a local copy of the documentation follow these steps:
 
 1. On CentOS you need to install [mbstring](https://secure.php.net/manual/book.mbstring.php) extension for PHP: `sudo yum install php-mbstring`.
 2. Install __apigen__ if it's not already installed. See http://www.apigen.org/ for instructions.
@@ -258,5 +284,5 @@ Tests
 
 A self-test for GotText can be found in __test/test.php__. Run the following `make` targets to perform this test:
 
-* `make test` - test the built extension in your current build directory. The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Debian you can disable GotText for PHP CLI by invoking the following command: `sudo php5dismod -s cli gottext`. You can enable it back with `sudo php5enmod -s cli gottext`. On CentOS you need to comment out the contents of __/etc/php.d/gottext.ini__ to disable the extension.
+* `make test` - test the built extension in your current build directory. The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Ubuntu you can disable GotText for PHP CLI by invoking the following command: `sudo phpdismod -s cli gottext`. You can enable it back with `sudo phpenmod -s cli gottext`. For PHP 5 use `php5dismod`/`php5enmod`. On CentOS you need to comment out the contents of __/etc/php.d/gottext.ini__ to disable the extension.
 * `make test_installed` - test the installed version of the extension.
