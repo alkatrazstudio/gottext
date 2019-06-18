@@ -407,7 +407,7 @@ protected:
             s.append(".");
         }
 
-        throw Php::Exception(s, static_cast<int>(e.type));
+        throw Php::Exception(s);
     }
 
     /*!
