@@ -105,8 +105,5 @@ namespace GotText {
         explicit Exception(Type type, std::istream& f, const std::string& strParam, uint32_t intParam = 0);
         explicit Exception(Type type, size_t filePos, std::string&& strParam, uint32_t intParam = 0);
         explicit Exception(Type type, std::istream& f, std::string&& strParam, uint32_t intParam = 0);
-
-        virtual ~Exception() {}
     };
-
 }

@@ -29,21 +29,21 @@
 namespace GotText {
 namespace Plural {
 
-    typedef int (*Func)(int n);
+    using Func = int(int n);
 
     /*!
      * Plural information.
      */
     struct Info {
-        Func func; /*!<
+        Func* func; /*!<
             A function to retrieve a plural form index
             by a number.
         */
 
-        size_t count; /*!< Number of plural forms */
+        size_t count {}; /*!< Number of plural forms */
 
         Info();
-        Info(Func func, int count);
+        Info(Func func, size_t count);
 
         /*!
          * Returns true if the plural information is valid/initialized.

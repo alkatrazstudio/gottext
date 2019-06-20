@@ -48,13 +48,14 @@
 #endif
 
 namespace GotText {
+
     static const uint32_t MO_MAX_SUPPORTED_VERSION = 0; /*!< Maximum supported *.mo files version. */
     static const uint32_t MO_MAGIC_NUMBER = 0x950412de; /*!< Magic number for *.mo files. */
 
-    typedef std::unordered_map<std::string, std::string> DictOne;
-    typedef std::unordered_map<std::string, std::vector<std::string>> DictNum;
-    typedef std::unordered_map<std::string, DictOne> DictCtxOne;
-    typedef std::unordered_map<std::string, DictNum> DictCtxNum;
+    using DictOne = std::unordered_map<std::string, std::string>;
+    using DictNum = std::unordered_map<std::string, std::vector<std::string>>;
+    using DictCtxOne = std::unordered_map<std::string, DictOne>;
+    using DictCtxNum = std::unordered_map<std::string, DictNum>;
 
     /*!
      * Translations and other info for a single language/locale.
@@ -86,7 +87,7 @@ namespace GotText {
         inline bool isDummy() const {return !pluralInfo.isValid();}
     };
 
-    typedef std::map<std::string, Lang> LangStorage;
+    using LangStorage = std::map<std::string, Lang>;
 
     /*!
      * Core class providing all base functionality:
@@ -114,7 +115,7 @@ namespace GotText {
 #endif
 
         explicit GotText();
-        virtual ~GotText(){}
+        virtual ~GotText() = default;
         GotText(const GotText& that);
 
         /*!

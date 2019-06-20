@@ -61,7 +61,7 @@ namespace GotText {
             return offset < other.offset;
         }
     };
-    typedef std::vector<StrIndex> StrIndexArr;
+    using StrIndexArr = std::vector<StrIndex>;
 
     struct StrData {
         int index;
@@ -76,7 +76,7 @@ namespace GotText {
             return index < other.index;
         }
     };
-    typedef std::vector<StrData> StrDataArr;
+    using StrDataArr = std::vector<StrData>;
 
     static LangStorage emptyLangStorage = {{"", Lang()}};
     static LangStorage langStorage;
@@ -164,7 +164,7 @@ namespace GotText {
         else
         {
             GOTTEXT_READ_UPGRADE_LOCK
-            LangStorage::iterator i = langStorage.find(filename);
+            auto i = langStorage.find(filename);
             if(i == langStorage.end() || (*i).second.isDummy())
             {
                 GOTTEXT_UPGRADE_LOCK_TO_WRITE
@@ -202,7 +202,7 @@ namespace GotText {
 
     bool GotText::isLoaded(const std::string& filename)
     {
-        LangStorage::iterator i = langStorage.find(filename);
+        auto i = langStorage.find(filename);
         return i != langStorage.end() && !(*i).second.isDummy();
     }
 
@@ -334,8 +334,8 @@ namespace GotText {
         auto trp = dataArrTr.begin();
         for(const StrData& orig : dataArrOrig)
         {
-            const StrData& tr = *trp;
-            if(orig.strings[0] == "")
+            StrData& tr = *trp;
+            if(orig.strings[0].empty())
             {
 #ifdef GOTTEXT_BOOST_REGEX
                 using namespace boost;
@@ -348,7 +348,7 @@ namespace GotText {
                     throw Exception(Exception::NoLanguageHeader, f, std::move(tr.strings[0]));
                 thisLang.pluralInfo = Plural::getInfo(m[1]);
                 if(thisLang.pluralInfo.isValid())
-                    thisLang.locale = std::move(m[1]);
+                    thisLang.locale = m[1];
                 break;
             }
             ++trp;

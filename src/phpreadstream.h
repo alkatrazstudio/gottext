@@ -35,7 +35,7 @@ class PhpReadBuffer : public std::streambuf
 public:
     PhpReadBuffer() = delete;
     explicit PhpReadBuffer(const std::string& filename);
-    virtual ~PhpReadBuffer();
+    ~PhpReadBuffer();
 
 protected:
     Php::Value f; /*!< file handle returned by PHP's fopen(). */
@@ -51,20 +51,20 @@ protected:
      * Override for std::streambuf::underflow().
      * Gets the current character without changing the current position.
      */
-    int_type underflow();
+    int_type underflow() override;
 
     /*!
      * Override for std::streambuf::seekpos().
      * Sets the absolute stream position.
      */
-    std::streampos seekpos(std::streampos pos, std::ios_base::openmode which = std::ios_base::in | std::ios_base::out);
+    std::streampos seekpos(std::streampos pos, std::ios_base::openmode which = std::ios_base::in | std::ios_base::out) override;
 
     /*!
      * Override for std::streambuf::seekoff().
      * Alters the stream position in a specific way.
      */
     std::streampos seekoff(std::streamoff off, std::ios_base::seekdir way,
-                           std::ios_base::openmode which = std::ios_base::in | std::ios_base::out);
+                           std::ios_base::openmode which = std::ios_base::in | std::ios_base::out) override;
 };
 
 /*!
@@ -75,7 +75,6 @@ class PhpReadStream : public std::istream
 public:
     PhpReadStream() = delete;
     explicit PhpReadStream(const std::string& filename);
-    virtual ~PhpReadStream(){}
 
 private:
     PhpReadBuffer buffer; /*!< the underlying buffer */

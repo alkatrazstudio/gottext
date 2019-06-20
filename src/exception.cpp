@@ -27,7 +27,6 @@
 namespace GotText {
 
     Exception::Exception(const Exception &other):
-        std::exception(),
         type(other.type),
         errNo(other.errNo),
         filePos(other.filePos),
@@ -37,7 +36,6 @@ namespace GotText {
     }
 
     Exception::Exception(Exception &&other):
-        std::exception(),
         type(other.type),
         errNo(other.errNo),
         filePos(other.filePos),
@@ -51,7 +49,6 @@ namespace GotText {
             size_t filePos,
             const char* strParam,
             uint32_t intParam):
-        std::exception(),
         type(type),
         errNo(errno),
         filePos(filePos),
@@ -66,7 +63,6 @@ namespace GotText {
             const char *strParam,
             uint32_t intParam
             ):
-        std::exception(),
         type(type),
         errNo(errno),
         intParam(intParam),
@@ -82,7 +78,6 @@ namespace GotText {
             const std::string &strParam,
             uint32_t intParam
             ):
-        std::exception(),
         type(type),
         errNo(errno),
         filePos(filePos),
@@ -96,7 +91,6 @@ namespace GotText {
             std::istream &f,
             const std::string &strParam,
             uint32_t intParam):
-        std::exception(),
         type(type),
         errNo(errno),
         intParam(intParam),
@@ -112,7 +106,6 @@ namespace GotText {
             std::string &&strParam,
             uint32_t intParam
             ):
-        std::exception(),
         type(type),
         errNo(errno),
         filePos(filePos),
@@ -126,7 +119,6 @@ namespace GotText {
             std::istream &f,
             std::string &&strParam,
             uint32_t intParam):
-        std::exception(),
         type(type),
         errNo(errno),
         intParam(intParam),

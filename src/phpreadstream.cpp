@@ -27,7 +27,6 @@
 static const int PHP_READ_BUFFER_LEN = 8192;
 
 PhpReadBuffer::PhpReadBuffer(const std::string &filename) :
-    std::streambuf(),
     f(Php::call("fopen", filename, "rb")),
     realPos(0)
 {
@@ -58,7 +57,7 @@ std::streambuf::int_type PhpReadBuffer::underflow()
     if(f.isBool())
         return traits_type::eof();
     std::string s = v.stringValue();
-    if(!s.size())
+    if(s.empty())
         return traits_type::eof();
     realPos += s.size();
     std::swap(s, buffer);
@@ -72,14 +71,14 @@ std::streambuf::int_type PhpReadBuffer::underflow()
 std::streampos PhpReadBuffer::seekpos(std::streampos pos, std::ios_base::openmode which)
 {
     if(!(which & std::ios_base::in))
-        return pos_type(off_type(-1));
+        return std::streampos(off_type(-1));
 
     int64_t bufOffset = static_cast<int64_t>(pos) - (realPos - buffer.size());
     if(bufOffset < 0 || static_cast<uint64_t>(bufOffset) > buffer.size())
     {
         Php::Value result = Php::call("fseek", f, pos);
         if(result == -1)
-            return pos_type(off_type(-1));
+            return std::streampos(off_type(-1));
         realPos = pos;
         setg(eback(), eback(), eback());
     }

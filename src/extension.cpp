@@ -45,7 +45,7 @@
 class GotTextCustom : public GotText::GotText {
 protected:
 #ifndef GOTTEXT_EXT_NATIVE_FILE
-    virtual ::GotText::Lang loadFromFile(const std::string& filename)
+    ::GotText::Lang loadFromFile(const std::string& filename) override
     {
         try{
             PhpReadStream f(filename);
@@ -60,7 +60,7 @@ protected:
         }
     }
 #endif
-    virtual time_t getTimestamp() const
+    time_t getTimestamp() const override
     {
         return Php::call("time");
     }
@@ -136,11 +136,11 @@ public:
         Php::Value dict(Php::Type::Array);
         for(auto& i : thisLang.dictCtxOne)
             dict[i.first] = umapToVal(i.second);
-        dicts["singular_context"] = std::move(dict);
+        dicts["singular_context"] = dict;
         dict = Php::Value(Php::Type::Array);
         for(auto& i : thisLang.dictCtxNum)
             dict[i.first] = umapToVal(i.second);
-        dicts["plural_context"] = std::move(dict);
+        dicts["plural_context"] = dict;
         return dicts;
     }
 
@@ -190,7 +190,7 @@ public:
         GOTTEXT_READ_LOCK
         std::vector<std::string> filenames;
         const GotText::LangStorage& storage = GotText::GotText::getStorage();
-        for(auto i : storage)
+        for(const auto& i : storage)
             filenames.emplace_back(i.first);
         return filenames;
     }
@@ -296,8 +296,6 @@ public:
         }
     }
 
-    virtual ~GotTextExtension() {}
-
 protected:
     /*!
      * Returns a hexadecimal string representation of an integer.
@@ -380,7 +378,7 @@ protected:
 
             case GotText::Exception::ReadError:
                 s.append("Read error");
-                if(e.strParam.size())
+                if(!e.strParam.empty())
                 {
                     s.append(". ");
                     s.append(e.strParam);
