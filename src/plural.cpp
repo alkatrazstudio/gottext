@@ -24,7 +24,9 @@
 
 #include "plural.h"
 
-// data from http://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html (Jan 24, 2016)
+//  data source: https://localization-guide.readthedocs.io/en/latest/l10n/pluralforms.html
+// last updated: Jun 20, 2019
+//    changelog: https://github.com/translate/l10n-guide/commits/master/docs/l10n/pluralforms.rst
 
 namespace GotText {
 namespace Plural {
@@ -40,26 +42,26 @@ namespace Plural {
 
     INFO_DECL(err,      0,   0);
     INFO_DECL(1,        1,   0);
-    INFO_DECL(2_ne1,    2,   n != 1 ? 1 : 0);
-    INFO_DECL(2_gt1,    2,   n != 1 ? 1 : 0);
-    INFO_DECL(slavic,   3,   n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);
-    INFO_DECL(ar,       6,   n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);
-    INFO_DECL(cs,       3,   (n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);
-    INFO_DECL(csb,      3,   (n==1) ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);
-    INFO_DECL(cy,       4,   (n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3);
-    INFO_DECL(ga,       5,   n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :(n>6 && n<11) ? 3 : 4);
-    INFO_DECL(gd,       4,   (n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n > 2 && n < 20) ? 2 : 3);
-    INFO_DECL(is,       2,   n%10!=1 || n%100==11 ? 1 : 0);
-    INFO_DECL(jv,       2,   n != 0 ? 1 : 0);
-    INFO_DECL(kw,       4,   (n==1) ? 0 : (n==2) ? 1 : (n == 3) ? 2 : 3);
-    INFO_DECL(lt,       3,   n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);
-    INFO_DECL(lv,       3,   n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);
+    INFO_DECL(2_ne1,    2,   n!=1 ? 1 : 0);
+    INFO_DECL(2_gt1,    2,   n>1 ? 1 : 0);
+    INFO_DECL(slavic,   3,   (n%10==1 && n%100!=11) ? 0 : (n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);
+    INFO_DECL(ar,       6,   n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : (n%100>=3 && n%100<=10) ? 3 : n%100>=11 ? 4 : 5);
+    INFO_DECL(cs,       3,   n==1 ? 0 : (n>=2 && n<=4) ? 1 : 2);
+    INFO_DECL(csb_pl,   3,   n==1 ? 0 : (n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);
+    INFO_DECL(cy,       4,   n==1 ? 0 : n==2 ? 1 : (n!=8 && n!=11) ? 2 : 3);
+    INFO_DECL(ga,       5,   n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 : (n>6 && n<11) ? 3 : 4);
+    INFO_DECL(gd,       4,   (n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n>2 && n<20) ? 2 : 3);
+    INFO_DECL(is,       2,   (n%10!=1 || n%100==11) ? 1 : 0);
+    INFO_DECL(jv,       2,   n!=0 ? 1 : 0);
+    INFO_DECL(kw,       4,   n==1 ? 0 : n==2 ? 1 : n==3 ? 2 : 3);
+    INFO_DECL(lt,       3,   (n%10==1 && n%100!=11) ? 0 : (n%10>=2 && (n%100<10 || n%100>=20)) ? 1 : 2);
+    INFO_DECL(lv,       3,   (n%10==1 && n%100!=11) ? 0 : n!=0 ? 1 : 2);
     INFO_DECL(mk,       2,   n==1 || n%10==1 ? 0 : 1);
     INFO_DECL(mnk,      3,   n==0 ? 0 : n==1 ? 1 : 2);
-    INFO_DECL(mt,       4,   n==1 ? 0 : n==0 || ( n%100>1 && n%100<11) ? 1 : (n%100>10 && n%100<20 ) ? 2 : 3);
-    INFO_DECL(ro,       3,   n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);
-    INFO_DECL(sk,       3,   (n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);
-    INFO_DECL(sl,       4,   n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);
+    INFO_DECL(mt,       4,   n==1 ? 0 : (n==0 || (n%100>1 && n%100<11)) ? 1 : (n%100>10 && n%100<20) ? 2 : 3);
+    INFO_DECL(ro,       3,   n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2);
+    INFO_DECL(sk,       3,   n==1 ? 0 : (n>=2 && n<=4) ? 1 : 2);
+    INFO_DECL(sl,       4,   n%100==1 ? 0 : n%100==2 ? 1 : (n%100==3 || n%100==4) ? 2 : 3);
 
     const Info& getInfo(const std::string &locale)
     {
@@ -90,7 +92,7 @@ namespace Plural {
         if(loc == "ca")  return info_2_ne1();
         if(loc == "cgg") return info_1();
         if(loc == "cs")  return info_cs();
-        if(loc == "csb") return info_csb();
+        if(loc == "csb") return info_csb_pl();
         if(loc == "cy")  return info_cy();
         if(loc == "da")  return info_2_ne1();
         if(loc == "de")  return info_2_ne1();
@@ -102,7 +104,7 @@ namespace Plural {
         if(loc == "es")  return info_2_ne1();
         if(loc == "et")  return info_2_ne1();
         if(loc == "eu")  return info_2_ne1();
-        if(loc == "fa")  return info_1();
+        if(loc == "fa")  return info_2_gt1();
         if(loc == "ff")  return info_2_ne1();
         if(loc == "fi")  return info_2_ne1();
         if(loc == "fil") return info_2_gt1();
@@ -110,7 +112,7 @@ namespace Plural {
         if(loc == "fr")  return info_2_gt1();
         if(loc == "fur") return info_2_ne1();
         if(loc == "fy")  return info_2_ne1();
-        if(loc == "ga")  return info_2_ne1();
+        if(loc == "ga")  return info_ga();
         if(loc == "gd")  return info_gd();
         if(loc == "gl")  return info_2_ne1();
         if(loc == "gu")  return info_2_ne1();
@@ -124,26 +126,27 @@ namespace Plural {
         if(loc == "hy")  return info_2_ne1();
         if(loc == "ia")  return info_2_ne1();
         if(loc == "id")  return info_1();
-        if(loc == "is")  return info_1();
+        if(loc == "is")  return info_is();
         if(loc == "it")  return info_2_ne1();
         if(loc == "ja")  return info_1();
         if(loc == "jbo") return info_1();
         if(loc == "jv")  return info_jv();
         if(loc == "ka")  return info_1();
-        if(loc == "kk")  return info_1();
+        if(loc == "kk")  return info_2_ne1();
         if(loc == "kl")  return info_2_ne1();
         if(loc == "km")  return info_1();
         if(loc == "kn")  return info_2_ne1();
         if(loc == "ko")  return info_1();
         if(loc == "ku")  return info_2_ne1();
         if(loc == "kw")  return info_kw();
-        if(loc == "ky")  return info_1();
+        if(loc == "ky")  return info_2_ne1();
         if(loc == "lb")  return info_2_ne1();
         if(loc == "ln")  return info_2_gt1();
         if(loc == "lo")  return info_1();
         if(loc == "lt")  return info_lt();
         if(loc == "lv")  return info_lv();
         if(loc == "mai") return info_2_ne1();
+        if(loc == "me")  return info_slavic();
         if(loc == "mfe") return info_2_gt1();
         if(loc == "mg")  return info_2_gt1();
         if(loc == "mi")  return info_2_gt1();
@@ -154,7 +157,7 @@ namespace Plural {
         if(loc == "mnk") return info_mnk();
         if(loc == "mr")  return info_2_ne1();
         if(loc == "ms")  return info_1();
-        if(loc == "mt")  return info_1();
+        if(loc == "mt")  return info_mt();
         if(loc == "my")  return info_1();
         if(loc == "nah") return info_2_ne1();
         if(loc == "nap") return info_2_ne1();
@@ -168,7 +171,7 @@ namespace Plural {
         if(loc == "or")  return info_2_ne1();
         if(loc == "pa")  return info_2_ne1();
         if(loc == "pap") return info_2_ne1();
-        if(loc == "pap") return info_slavic();
+        if(loc == "pl")  return info_csb_pl();
         if(loc == "pms") return info_2_ne1();
         if(loc == "ps")  return info_2_ne1();
         if(loc == "pt")  return info_2_ne1();
