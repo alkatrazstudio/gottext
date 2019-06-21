@@ -238,6 +238,7 @@ When invoking `make` to build GotText you may specify the following options:
 * `BOOST_REGEX=1` - use [Boost.Regex](http://www.boost.org/doc/libs/master/libs/regex/doc/html/index.html) instead of std::regex. Use this option when your version of GCC does not support regular expressions (GCC < 4.9.0). If you enable this option then you'll also have to install Boost.Regex: `sudo apt-get install libboost-regex-dev` for Ubuntu/Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
 * `PHP_VER=x.y` - use PHP version x.y instead of the auto-detected one. This is for internal development only.
 * `PHPCPP_ROOT` - assume that PHP-CPP root is installed under this diretory. This option adds `$PHPCPP_ROOT/include` to the header search paths, and `$PHPCPP_ROOT/lib` to the library search paths.
+* `STANDALONE` - include all library dependencies inside GotText binary, so that it can be used without any external libraries (like Boost or PHP-CPP) at runtime
 
 You may combine these options. For example, to install a debug thread-safe version of GotText that uses native file reading functions, run the following:
 

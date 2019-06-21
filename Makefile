@@ -108,6 +108,11 @@ ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 	endif
 
 	OBJECTS := $(SOURCES:%.cpp=%.o)
+	LINKER_LIB_FLAGS := $(addprefix -l, ${LIBS})
+
+	ifdef STANDALONE
+		LINKER_LIB_FLAGS := -Wl,-Bstatic ${LINKER_LIB_FLAGS} -Wl,-Bdynamic
+	endif
 
 endif
 
@@ -122,7 +127,7 @@ TEST_FILE := test/test.php
 all: ${OBJECTS} ${EXTENSION}
 
 ${EXTENSION}: ${OBJECTS}
-	${LINKER} ${LINKER_FLAGS} -o $@ ${OBJECTS} $(addprefix -l, ${LIBS})
+	${LINKER} -o $@ ${OBJECTS} ${LINKER_FLAGS} ${LINKER_LIB_FLAGS}
 
 ${OBJECTS}:
 	${COMPILER} ${COMPILER_FLAGS} $(addprefix -D, ${DEFINES}) -o $@ ${@:%.o=%.cpp}
