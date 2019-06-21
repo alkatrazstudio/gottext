@@ -1,5 +1,5 @@
 GotText - Translation engine for PHP
-=====================================
+====================================
 
 GotText is an alternative to [PHP's gettext](https://secure.php.net/manual/book.gettext.php). It can load [MO files](https://www.gnu.org/software/gettext/manual/html_node/MO-Files.html) produced by [msgfmt](https://www.gnu.org/software/gettext/manual/html_node/msgfmt-Invocation.html).
 GotText is not a drop-in replacement for gettext,
@@ -31,7 +31,7 @@ Advantages over PHP's gettext
 
 This is how you load a translation file in gettext:
 
-```php?start_inline=1
+```php
 setlocale(LC_MESSAGES, "ru_RU.utf8");
 bindtextdomain("messages", "./locale");
 textdomain("messages");
@@ -40,7 +40,7 @@ bind_textdomain_codeset("messages", "UTF-8");
 
 And this is how it's done in GotText:
 
-```php?start_inline=1
+```php
 $gotText = new GotText("./any_path/ru_RU.mo");
 ```
 
@@ -62,7 +62,7 @@ without resorting to some dirty hacks.
 GotText also caches all translations in memory like gettext,
 but GotText offers a separate function to reload the translations from disk:
 
-```php?start_inline=1
+```php
 GotText::reload("./ru_RU.mo");
 ```
 
@@ -237,8 +237,8 @@ When invoking `make` to build GotText you may specify the following options:
 * `DEBUG=1` - build a debug version of the extension
 * `BOOST_REGEX=1` - use [Boost.Regex](http://www.boost.org/doc/libs/master/libs/regex/doc/html/index.html) instead of std::regex. Use this option when your version of GCC does not support regular expressions (GCC < 4.9.0). If you enable this option then you'll also have to install Boost.Regex: `sudo apt-get install libboost-regex-dev` for Ubuntu/Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
 * `PHP_VER=x.y` - use PHP version x.y instead of the auto-detected one. This is for internal development only.
-* `PHPCPP_ROOT` - assume that PHP-CPP root is installed under this diretory. This option adds `$PHPCPP_ROOT/include` to the header search paths, and `$PHPCPP_ROOT/lib` to the library search paths.
-* `STANDALONE` - include all library dependencies inside GotText binary, so that it can be used without any external libraries (like Boost or PHP-CPP) at runtime
+* `PHPCPP_ROOT=<PHP-CPP install directory>` - assume that PHP-CPP root is installed under this diretory. This option adds `$PHPCPP_ROOT/include` to the header search paths, and `$PHPCPP_ROOT/lib` to the library search paths.
+* `STANDALONE=1` - include all library dependencies inside GotText binary, so that it can be used without any external libraries (like Boost or PHP-CPP) at runtime. Note that this only work if all library dependencies are built with `-fPIC` compiler flag.
 
 You may combine these options. For example, to install a debug thread-safe version of GotText that uses native file reading functions, run the following:
 
