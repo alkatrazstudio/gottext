@@ -102,6 +102,11 @@ ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 		LIBS += boost_regex
 	endif
 
+	ifdef PHPCPP_ROOT
+		COMPILER_FLAGS += -I ${PHPCPP_ROOT}/include
+		LINKER_FLAGS += -L ${PHPCPP_ROOT}/lib
+	endif
+
 	OBJECTS := $(SOURCES:%.cpp=%.o)
 
 endif
