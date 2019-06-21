@@ -93,12 +93,8 @@ ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 		LINKER_FLAGS +=
 		DEFINES += GOTTEXT_EXT_DEBUG
 	else
-		COMPILER_FLAGS += -ffunction-sections -fdata-sections -fvisibility=hidden -O3
-		LINKER_FLAGS += -Wl,-O3,-s,-gc-sections
-		ifeq ($(COMPILER),g++)
-			COMPILER_FLAGS += -fuse-linker-plugin -flto
-			LINKER_FLAGS += -fuse-linker-plugin -flto
-		endif
+		COMPILER_FLAGS += -ffunction-sections -fdata-sections -fvisibility=hidden -O2
+		LINKER_FLAGS += -Wl,-s,-gc-sections
 	endif
 
 	ifdef BOOST_REGEX
