@@ -17,8 +17,6 @@ EXTENSION := ${NAME}.so
 
 ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 
-	VER_PAT := $(shell git rev-list HEAD ^$(shell git log --pretty=format:%H -1 src/semver.mk) --count src/*.h src/*.cpp)
-
 	PHP_VER ?= $(shell php-config --version)
 	PHP_VER_SHORT := $(shell ${ECHO} "${PHP_VER}" | sed -e 's/\./ /g')
 	PHP_VER_MAJ := $(word 1, ${PHP_VER_SHORT})
