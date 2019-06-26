@@ -1,4 +1,7 @@
-include src/semver.mk
+ROOT_DIR := $(patsubst %/,%,$(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
+SRC_DIR := ${ROOT_DIR}/src
+
+include ${SRC_DIR}/semver.mk
 
 ######
 
@@ -38,8 +41,6 @@ ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 			$(error Unsupported PHP version: ${PHP_VER_MAJ}.${PHP_VER_MIN})
 		endif
 	endif
-
-	SRC_DIR := src
 
 	EXTENSION_DIR := $(shell php-config --extension-dir)
 
@@ -107,7 +108,7 @@ ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 		LINKER_FLAGS += -L ${PHPCPP_ROOT}/lib
 	endif
 
-	OBJECTS := $(SOURCES:%.cpp=%.o)
+	OBJECTS := ${SOURCES:${SRC_DIR}/%.cpp=%.o}
 	LINKER_LIB_FLAGS := $(addprefix -l, ${LIBS})
 
 	ifdef STANDALONE
@@ -127,10 +128,10 @@ TEST_FILE := test/test.php
 all: ${OBJECTS} ${EXTENSION}
 
 ${EXTENSION}: ${OBJECTS}
-	${LINKER} -o $@ ${OBJECTS} ${LINKER_FLAGS} ${LINKER_LIB_FLAGS}
+	${LINKER} -o $@ $^ ${LINKER_FLAGS} ${LINKER_LIB_FLAGS}
 
 ${OBJECTS}:
-	${COMPILER} ${COMPILER_FLAGS} $(addprefix -D, ${DEFINES}) -o $@ ${@:%.o=%.cpp}
+	${COMPILER} ${COMPILER_FLAGS} $(addprefix -D, ${DEFINES}) -o $@ ${@:%.o=${SRC_DIR}/%.cpp}
 
 .PHONY: install
 install:
