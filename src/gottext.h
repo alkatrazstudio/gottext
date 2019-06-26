@@ -63,12 +63,12 @@ namespace GotText {
     struct Lang {
         time_t time = 0; /*!<
             A timestamp provided by GotText::getTimestamp().
-            The default GotText implementation does not use this value internally
+            The default GotText implementation does not use this field internally
             after assigning a value to it.
         */
         std::string locale; /*!<
             Locale, i.e. ru_RU, sv, sah.
-            The default GotText implementation does not use this value internally
+            The default GotText implementation does not use this field internally
             after assigning a value to it.
         */
         Plural::Info pluralInfo; /*!< see Plural::Info. */

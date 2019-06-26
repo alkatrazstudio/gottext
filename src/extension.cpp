@@ -60,6 +60,7 @@ protected:
         }
     }
 #endif
+
     time_t getTimestamp() const override
     {
         return Php::call("time");
