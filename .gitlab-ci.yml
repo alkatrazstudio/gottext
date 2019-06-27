@@ -1,49 +1,31 @@
-build-php7:
+.build-steps: &build-steps
   stage: build
-  image: ubuntu:16.04
   script:
-  - apt-get update -y > /dev/null
-  - apt-get install -y git php-dev sudo > /dev/null
-  - git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP.git
-  - cd PHP-CPP && make release && make install && cd ..
-  - make
-  - make test
-  - make clean
-  - apt-get install -y libboost-thread-dev > /dev/null
-  - make THREAD_SAFE=1
-  - make test
-  - make clean
-  - make NATIVE_FILE=1
-  - make test
-  - make clean
-  - apt-get install -y libboost-regex-dev > /dev/null
-  - make THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1
+  - build/build.sh
   - make install
-  - phpenmod gottext
   - make test_installed
-  - phpdismod gottext
   - make uninstall
-  - cd PHP-CPP && make uninstall && cd ..
-  only:
-  - master
+  - make clean
+  - make PHPCPP_ROOT=/tmp/deps/dist/lib THREAD_SAFE=1
+  - make test
+  - make clean
+  - make PHPCPP_ROOT=/tmp/deps/dist/lib NATIVE_FILE=1
+  - make test
+  - make NATIVE_FILE=1 clean
+  - make PHPCPP_ROOT=/tmp/deps/dist/lib BOOST_REGEX=1
+  - make test
+  - make clean
+  - make PHPCPP_ROOT=/tmp/deps/dist/lib THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1 STANDALONE=1
+  - make test
+  - make NATIVE_FILE=1 clean
 
-build-php5:
-  stage: build
-  image: centos:7
-  script:
-  - yum -y install sudo which git gcc-c++ make php-devel boost-devel > /dev/null
-  - git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP-LEGACY.git
-  - sed -i.bak '/requiretty/d' /etc/sudoers
-  - cd PHP-CPP-LEGACY && make release && make install && cd ..
-  - make BOOST_REGEX=1
-  - make test
-  - make clean
-  - make THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1
-  - make install
-  - make test_installed
-  - make uninstall
-  only:
-  - master
+build-php72:
+  image: php:7.2
+  <<: *build-steps
+
+build-php73:
+  image: php:7.3
+  <<: *build-steps
 
 pages:
   image: ubuntu:14.04

@@ -52,6 +52,10 @@ rm -rf dist
 mkdir dist
 pushd dist
     cp -a /tmp/deps/dist/. ./
-    cp -a /tmp/gottext/*.so ./
-    chown "$USER_UID:$USER_GID" -R .
+    cp -a /tmp/gottext/dist/*.so ./
+
+    if [[ ! -z $USER_UID ]]
+    then
+        chown "$USER_UID:$USER_GID" -R .
+    fi
 popd
