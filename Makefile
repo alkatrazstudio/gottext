@@ -10,10 +10,12 @@ TITLE := GotText
 
 CP := cp -R
 RM := rm -f
+RM_EMPTY_DIR := rm -d
 MKDIR := mkdir -p
 ECHO := echo
 
 EXTENSION := ${NAME}.so
+DIST_DIR := dist
 
 ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 
@@ -123,9 +125,10 @@ TEST_FILE := test/test.php
 ######
 
 .PHONY: all
-all: ${OBJECTS} ${EXTENSION}
+all: ${OBJECTS} ${DIST_DIR}/${EXTENSION}
 
-${EXTENSION}: ${OBJECTS}
+${DIST_DIR}/${EXTENSION}: ${OBJECTS}
+	${MKDIR} ${DIST_DIR}
 	${LINKER} -o $@ $^ ${LINKER_FLAGS} ${LINKER_LIB_FLAGS}
 
 ${OBJECTS}:
@@ -134,7 +137,7 @@ ${OBJECTS}:
 .PHONY: install
 install:
 	${MKDIR} ${EXTENSION_DIR}
-	${CP} ${EXTENSION} ${EXTENSION_DIR}/
+	${CP} ${DIST_DIR}/${EXTENSION} ${EXTENSION_DIR}/
 	if [ "${INI_DIR}" ]; \
 	then \
 		${MKDIR} ${INI_DIR}; \
@@ -151,11 +154,12 @@ uninstall:
 
 .PHONY: clean
 clean:
-	${RM} ${EXTENSION} ${OBJECTS}
+	${RM} ${DIST_DIR}/${EXTENSION} ${OBJECTS}
+	-${RM_EMPTY_DIR} ${DIST_DIR}
 
 .PHONY: test
 test:
-	php -dzend.assertions=1 -dextension=./${EXTENSION} ${TEST_FILE}
+	php -dzend.assertions=1 -dextension=./${DIST_DIR}/${EXTENSION} ${TEST_FILE}
 
 .PHONY: test_installed
 test_installed:

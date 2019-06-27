@@ -155,80 +155,35 @@ echo __("Hello, World!");
 Installing from source
 ----------------------
 
-__NOTE:__ At the time of writing, PHP-CPP installation process (`make install`) explicitly required the presense of `sudo` command.
+The recommended method is building via Docker.
+The script `build/docker-build.sh` does all the job of building a statically-linked version of GotText (no extra dependencies).
+This script tries to automatically detect the installed version of PHP on the host system.
+You can also pass a specific PHP version number, which is actually a tag for a `php` Docker image.
+The list of possible tags can be found here: https://hub.docker.com/_/php.
 
-Instructions for Ubuntu 16.04 (Xenial Xerus), PHP 7:
+After running `docker-build.sh` the extension will be located at `dist/gottext.so`.
+You can then install it via `make install`.
+
+Usage example of `docker-build.sh` for building GotText for PHP 7.2:
 
 ```bash
-# install Git and PHP development files
-sudo apt update && sudo apt install git php-dev
-
-# get the source code of PHP-CPP, the helper library
-git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP.git
-
-# build and install PHP-CPP
-cd PHP-CPP && make release && sudo make install && cd ..
-
 # get the source code of GotText
 git clone https://gitlab.com/alkatrazstudio/gottext.git
+cd gottext
 
-# build and install GotText with default options;
-# see the comments below for a full list of build options
-cd gottext && make && sudo make install && cd ..
+# start the Docker build (the version number can be omitted)
+build/docker-build.sh 7.2
 
-# enable GotText PHP extension
+# install the extension
+sudo make install
+
+# enable the extension
 sudo phpenmod gottext
 ```
 
-Instructions for Debian 8 (Jessie), PHP 5:
+After enabling the extension you may need to restart your web server and/or PHP process manager (e.g. PHP-FPM).
 
-```bash
-# install Git and PHP development files
-sudo apt update && sudo apt install git php5-dev
-
-# get the source code of PHP-CPP-LEGACY, the helper library
-git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP-LEGACY.git
-
-# build and install PHP-CPP-LEGACY
-cd PHP-CPP-LEGACY && make release && sudo make install && cd ..
-
-# get the source code of GotText
-git clone https://gitlab.com/alkatrazstudio/gottext.git
-
-# build and install GotText with default options;
-# see the comments below for a full list of build options
-cd gottext && make && sudo make install && cd ..
-
-# enable GotText PHP extension
-sudo php5enmod gottext
-```
-
-Instructions for CentOS 7.2, PHP 5:
-
-```bash
-# install Git, build tools and PHP development files;
-# CentOS 7.2 supplies GCC 4.8 which does not support regular expressions
-# so we need to use Boost.Regex instead
-yum install which git gcc-c++ make php-devel boost-devel
-
-# get the source code of PHP-CPP-LEGACY, the helper library
-git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP-LEGACY.git
-
-# build and install PHP-CPP-LEGACY
-cd PHP-CPP-LEGACY && make release && sudo make install && cd ..
-
-# get the source code of GotText
-git clone https://gitlab.com/alkatrazstudio/gottext.git
-
-# build and install GotText with Boost.Regex;
-# see the comments below for a full list of build options
-cd gottext && make BOOST_REGEX=1 && sudo make install && cd ..
-
-# CentOS does not have php5enmod so the extension is enabled by default;
-# ini file location: /etc/php.d/gottext.ini
-```
-
-You then also may need to restart your web server and/or PHP process manager (e.g. PHP-FPM) after the installation if needed.
+The actual build process that happens inside Docker container is described in `build/build.sh`.
 
 When invoking `make` to build GotText you may specify the following options:
 
@@ -286,5 +241,5 @@ Tests
 
 A self-test for GotText can be found in __test/test.php__. Run the following `make` targets to perform this test:
 
-* `make test` - test the built extension in your current build directory. The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Ubuntu you can disable GotText for PHP CLI by invoking the following command: `sudo phpdismod -s cli gottext`. You can enable it back with `sudo phpenmod -s cli gottext`. For PHP 5 use `php5dismod`/`php5enmod`. On CentOS you need to comment out the contents of __/etc/php.d/gottext.ini__ to disable the extension.
+* `make test` - test the built extension in your current build directory (in a `dist` subfolder). The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Ubuntu you can disable GotText for PHP CLI by invoking the following command: `sudo phpdismod -s cli gottext`. You can enable it back with `sudo phpenmod -s cli gottext`. For PHP 5 use `php5dismod`/`php5enmod`. On CentOS you need to comment out the contents of __/etc/php.d/gottext.ini__ to disable the extension. This test works also with the extension built via Docker.
 * `make test_installed` - test the installed version of the extension.
