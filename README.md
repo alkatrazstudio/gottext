@@ -201,6 +201,18 @@ You may combine these options. For example, to install a debug thread-safe versi
 make THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 && sudo make install
 ```
 
+Shadow builds are supported. To enable shadow build just run make from a different directory.
+For example:
+
+```bash
+# make a subfolder to hold builf artifacts
+mkdir -p shadow
+cd shadow
+
+# point make to the Makefile in the root of the repository
+make -f STANDALONE=1 PHPCPP_ROOT=/tmp/PHP-CPP/dist -f ../Makefile
+```
+
 If you've already built the extension and want to change some build options, then you should clean the previous build: `make clean`.
 
 
