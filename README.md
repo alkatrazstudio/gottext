@@ -1,13 +1,13 @@
 GotText - Translation engine for PHP
 ====================================
 
-GotText is an alternative to [PHP's gettext](https://secure.php.net/manual/book.gettext.php). It can load [MO files](https://www.gnu.org/software/gettext/manual/html_node/MO-Files.html) produced by [msgfmt](https://www.gnu.org/software/gettext/manual/html_node/msgfmt-Invocation.html).
+GotText is an alternative to [PHP's gettext](https://www.php.net/manual/book.gettext.php). It can load [MO files](https://www.gnu.org/software/gettext/manual/html_node/MO-Files.html) produced by [msgfmt](https://www.gnu.org/software/gettext/manual/html_node/msgfmt-Invocation.html).
 GotText is not a drop-in replacement for gettext,
 so read the below notes and [documentation](https://alkatrazstudio.gitlab.io/gottext/api/) before trying to use this extension.
 
 The current version of GotText PHP extension is for PHP 7 on Linux.
 
-This extension is built using [PHP-CPP](http://www.php-cpp.com/) framework.
+This extension is built using [PHP-CPP](https://www.php-cpp.com) framework.
 
 
 
@@ -98,13 +98,13 @@ Unsupported gettext features
 
 GotText has no concept of domains, categories and codesets. Therefore the following gettext functions has no alternatives in GotText:
 
-* [bind_textdomain_codeset](https://secure.php.net/manual/function.bind-textdomain-codeset.php)
-* [bindtextdomain](https://secure.php.net/manual/function.bindtextdomain.php)
-* [dcgettext](https://secure.php.net/manual/function.dcgettext.php)
-* [dcngettext](https://secure.php.net/manual/function.dcngettext.php)
-* [dgettext](https://secure.php.net/manual/function.dgettext.php)
-* [dngettext](https://secure.php.net/manual/function.dngettext.php)
-* [textdomain](https://secure.php.net/manual/function.textdomain.php)
+* [bind_textdomain_codeset](https://php.net/manual/function.bind-textdomain-codeset.php)
+* [bindtextdomain](https://php.net/manual/function.bindtextdomain.php)
+* [dcgettext](https://php.net/manual/function.dcgettext.php)
+* [dcngettext](https://php.net/manual/function.dcngettext.php)
+* [dgettext](https://php.net/manual/function.dgettext.php)
+* [dngettext](https://php.net/manual/function.dngettext.php)
+* [textdomain](https://php.net/manual/function.textdomain.php)
 
 GotText also does not perform any charset conversions. It will match against and return the exact binary representation of strings that were located in the loaded MO file. It's recommended to create your MO files in UTF-8, and then treat all strings that are passed to or retreived from GotText as UTF-8.
 
@@ -113,7 +113,7 @@ GotText also does not perform any charset conversions. It will match against and
 open_basedir support
 --------------------
 
-GotText respects [open_basedir](https://secure.php.net/manual/ru/ini.core.php#ini.open-basedir) when it opens files, gettext - does not. By default, GotText uses PHP's [fopen()](https://secure.php.net/manual/function.fopen.php) to read files. Therefore __open_basedir__ restrictions are in order. If you don't want such restrictions, you may build GotText with a flag that instructs GotText to use native functions to read files. See the [build instructions](#installing-from-source) below for more details.
+GotText respects [open_basedir](https://php.net/manual/ru/ini.core.php#ini.open-basedir) when it opens files, gettext - does not. By default, GotText uses PHP's [fopen()](https://php.net/manual/function.fopen.php) to read files. Therefore __open_basedir__ restrictions are in order. If you don't want such restrictions, you may build GotText with a flag that instructs GotText to use native functions to read files. See the [build instructions](#installing-from-source) below for more details.
 
 
 
@@ -187,10 +187,10 @@ The actual build process that happens inside Docker container is described in `b
 
 When invoking `make` to build GotText you may specify the following options:
 
-* `THREAD_SAFE=1` - build a thread-safe version of GotText. By default, GotText is not thread-safe. If you enable this option then you'll also have to install [Boost.Thread](http://www.boost.org/doc/libs/master/doc/html/thread.html): `sudo apt-get install libboost-thread-dev` for Ubuntu/Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
+* `THREAD_SAFE=1` - build a thread-safe version of GotText. By default, GotText is not thread-safe. If you enable this option then you'll also have to install [Boost.Thread](http://www.boost.org/doc/libs/master/doc/html/thread.html): `sudo apt install libboost-thread-dev` for Ubuntu/Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
 * `NATIVE_FILE=1` - instruct GotText to use a native API for reading files. By default, GotText reads files using PHP functions (fopen, fread, ...).
 * `DEBUG=1` - build a debug version of the extension
-* `BOOST_REGEX=1` - use [Boost.Regex](http://www.boost.org/doc/libs/master/libs/regex/doc/html/index.html) instead of std::regex. Use this option when your version of GCC does not support regular expressions (GCC < 4.9.0). If you enable this option then you'll also have to install Boost.Regex: `sudo apt-get install libboost-regex-dev` for Ubuntu/Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
+* `BOOST_REGEX=1` - use [Boost.Regex](http://www.boost.org/doc/libs/master/libs/regex/doc/html/index.html) instead of std::regex. Use this option when your version of GCC does not support regular expressions (GCC < 4.9.0). If you enable this option then you'll also have to install Boost.Regex: `sudo apt install libboost-regex-dev` for Ubuntu/Debian, `yum install boost-devel` for CentOS, or install an alternative package for your OS.
 * `PHP_VER=x.y` - use PHP version x.y instead of the auto-detected one. This is for internal development only.
 * `PHPCPP_ROOT=<PHP-CPP install directory>` - assume that PHP-CPP root is installed under this diretory. This option adds `$PHPCPP_ROOT/include` to the header search paths, and `$PHPCPP_ROOT/lib` to the library search paths.
 * `STANDALONE=1` - include all library dependencies inside GotText binary, so that it can be used without any external libraries (like Boost or PHP-CPP) at runtime. Note that this only work if all library dependencies are built with `-fPIC` compiler flag.
@@ -210,7 +210,7 @@ mkdir -p shadow
 cd shadow
 
 # point make to the Makefile in the root of the repository
-make -f STANDALONE=1 PHPCPP_ROOT=/tmp/PHP-CPP/dist -f ../Makefile
+make STANDALONE=1 PHPCPP_ROOT=/tmp/PHP-CPP/dist -f ../Makefile
 ```
 
 If you've already built the extension and want to change some build options, then you should clean the previous build: `make clean`.
