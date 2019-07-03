@@ -17,7 +17,7 @@ ECHO := echo
 EXTENSION := ${NAME}.so
 DIST_DIR := dist
 
-ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
+ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
 
 	PHP_VER ?= $(shell php-config --version)
 	PHP_VER_SHORT := $(shell ${ECHO} "${PHP_VER}" | sed -e 's/\./ /g')
@@ -117,9 +117,6 @@ ifeq ($(filter test test_installed doc, ${MAKECMDGOALS}),)
 
 endif
 
-DOC_DIR := doc
-DOC_DIR_SOURCE := ${DOC_DIR}/source
-DOC_DIR_API := ${DOC_DIR}/api
 TEST_FILE := test/test.php
 
 ######
@@ -164,12 +161,3 @@ test:
 .PHONY: test_installed
 test_installed:
 	php -dzend.assertions=1 ${TEST_FILE}
-
-.PHONY: doc
-doc: ${DOC_DIR_API}/index.html
-${DOC_DIR_API}/index.html: ${DOC_DIR_SOURCE}/${NAME}.php
-	${ECHO} | apigen generate \
-		--source ${DOC_DIR_SOURCE} \
-		--destination ${DOC_DIR_API} \
-		--title="${TITLE} Documentation" \
-		--debug

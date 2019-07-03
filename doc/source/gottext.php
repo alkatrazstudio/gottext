@@ -4,12 +4,13 @@
  *
  * @package GotText
  * @author Alexey Parfenov aka ZXED <zxed@alkatrazstudio.net>
- * @copyright 2016, Alkatraz Studio
+ * @copyright 2016, Alkatraz Studio <a href="https://alkatrazstudio.net" target="_blank" rel="noreferrer">https://alkatrazstudio.net</a>
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License version 3 or later
  */
 
 /**
- * Translation engine with gettext-like features.
+ * GotText - a translation engine with gettext-like features.
+ * <a href="https://gitlab.com/alkatrazstudio/gottext" target="_blank" rel="noreferrer">https://gitlab.com/alkatrazstudio/gottext</a>
  */
 class GotText {
 
@@ -49,11 +50,11 @@ class GotText {
      *
      * Note that GotText will ignore any plural form rules found in MO file.
      * All plural form rules are hardcoded into GotText.
-     * The only information GotText will retreive and use from MO file header
+     * The only information GotText will retrieve and use from MO file header
      * is a locale code.
      *
      * @param string $filename A file with translations to load in gettext MO format.
-     * If not specified, then a dummy GotText will be returned.
+     * If not specified then a dummy GotText will be returned.
      * See {@see isDummy()} to read more about dummy objects.
      * @param string $data A binary data in gettext MO format.
      * If this parameter is specified,
@@ -347,7 +348,7 @@ class GotText {
      *
      * @param string $filename A filename that refers to a desired translation file.
      *
-     * @return mixed A GotText object if the file is found in memory.
+     * @return GotText A GotText object if the file is found in memory.
      * __FALSE__ if the file was not loaded before or
      * if it's currently unloaded.
      *

@@ -239,12 +239,9 @@ Documentation
 
 You can find the full documentation at https://alkatrazstudio.gitlab.io/gottext/api/.
 
-The GotText docs are built with [apigen](http://www.apigen.org/). At the time of writing, apigen only supported PHP 5. To build or modify a local copy of the documentation follow these steps:
+The GotText docs are built with [ApiGen](https://github.com/ApiGen/ApiGen) v4. This version only supports PHP 5. The recommended way to build the documentation is to use `doc/docker-build.sh` script which uses Docker images to run ApiGen. After running this script the resulting documentation will be located in `doc/dist`. The actual build instructions are described in `doc/docker-build.sh`.
 
-1. On CentOS you need to install [mbstring](https://secure.php.net/manual/book.mbstring.php) extension for PHP: `sudo yum install php-mbstring`.
-2. Install __apigen__ if it's not already installed. See http://www.apigen.org/ for instructions.
-3. Edit __doc/source/gottext.php__ if needed.
-4. Invoke `make doc` to build the documentation into __doc/api__ folder.
+Documentation is based on `doc/source/gottext.php` file. You can also use this file in your IDE to enable auto-completition, etc.
 
 
 
