@@ -5,9 +5,9 @@ GotText is an alternative to [PHP's gettext](https://secure.php.net/manual/book.
 GotText is not a drop-in replacement for gettext,
 so read the below notes and [documentation](https://alkatrazstudio.gitlab.io/gottext/api/) before trying to use this extension.
 
-The current version of GotText PHP extension is for PHP 7 and PHP 5 on Linux.
+The current version of GotText PHP extension is for PHP 7 on Linux.
 
-This extension is built using [PHP-CPP](http://www.php-cpp.com/) framework. The [main repository](https://github.com/CopernicaMarketingSoftware/PHP-CPP) of PHP-CPP is for PHP 7 only. If you want to build GotText for PHP 5 you need to use [PHP-CPP-LEGACY](https://github.com/CopernicaMarketingSoftware/PHP-CPP-LEGACY) repository.
+This extension is built using [PHP-CPP](http://www.php-cpp.com/) framework.
 
 
 
@@ -222,15 +222,13 @@ Uninstall
 
 To uninstall the extension, issue the following commands:
 ```bash
-sudo phpdismod gottext # for PHP 5 use php5dismod if available
+sudo phpdismod gottext
 cd <path-to-gottext-repository-root>
 sudo make uninstall
 cd <path-to-PHP-CPP-repository-root>
 sudo make uninstall
 ```
 Then restart your web-server and/or PHP process manager if needed.
-
-At the time of writing, PHP-CPP-LEGACY did not provide any means to uninstall itself via `make`.
 
 
 
@@ -250,5 +248,5 @@ Tests
 
 A self-test for GotText can be found in __test/test.php__. Run the following `make` targets to perform this test:
 
-* `make test` - test the built extension in your current build directory (in a `dist` subfolder). The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Ubuntu you can disable GotText for PHP CLI by invoking the following command: `sudo phpdismod -s cli gottext`. You can enable it back with `sudo phpenmod -s cli gottext`. For PHP 5 use `php5dismod`/`php5enmod`. On CentOS you need to comment out the contents of __/etc/php.d/gottext.ini__ to disable the extension. This test works also with the extension built via Docker.
+* `make test` - test the built extension in your current build directory (in a `dist` subfolder). The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Ubuntu you can disable GotText for PHP CLI by invoking the following command: `sudo phpdismod -s cli gottext`. You can enable it back with `sudo phpenmod -s cli gottext`. This test works also with the extension built via Docker.
 * `make test_installed` - test the installed version of the extension.

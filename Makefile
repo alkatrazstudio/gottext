@@ -34,12 +34,7 @@ ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
 		PHPENMOD := phpenmod
 		MODS_SUBDIR := php/${PHP_VER_MAJ}.${PHP_VER_MIN}
 	else
-		ifeq (${PHP_VER_MAJ}, 5)
-			PHPENMOD := php5enmod
-			MODS_SUBDIR := php5
-		else
-			$(error Unsupported PHP version: ${PHP_VER_MAJ}.${PHP_VER_MIN})
-		endif
+		$(error Unsupported PHP version: ${PHP_VER_MAJ}.${PHP_VER_MIN})
 	endif
 
 	EXTENSION_DIR := $(shell php-config --extension-dir)
