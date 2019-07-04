@@ -600,6 +600,8 @@ class GotText {
      *   (__DEBUG__ build flag);
      * * __boost_regex__ - __TRUE__ if Boost.Regex is used instead of built-in GCC regular expression library
      *   (__BOOST_REGEX__ build flag).
+     * * __standalone__ - __TRUE__ if GotText is compiled as a standalone library
+     *   (__STANDALONE__ build flag).
      *
      * @example
      * ```php
@@ -616,6 +618,7 @@ class GotText {
      *   'native_file' => false,
      *   'debug' => false,
      *   'boost_regex' => true,
+     *   'standalone' => true,
      * )
      * ```
      */

@@ -120,7 +120,7 @@ foreach(array("major", "minor", "patch", "timestamp") as $key)
     assert($info[$key] >= 0);
 }
 assert($info["timestamp"] == strtotime(date("Y-m-d H:i:s", $info["timestamp"])));
-foreach(array("thread_safe", "native_file", "debug", "boost_regex") as $key)
+foreach(array("thread_safe", "native_file", "debug", "boost_regex", "standalone") as $key)
 {
     assert(isset($info[$key]));
     assert(is_bool($info[$key]));

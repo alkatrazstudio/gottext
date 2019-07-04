@@ -107,6 +107,7 @@ ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
 	LINKER_LIB_FLAGS := $(addprefix -l, ${LIBS})
 
 	ifdef STANDALONE
+		DEFINES += GOTTEXT_STANDALONE
 		LINKER_LIB_FLAGS := -Wl,-Bstatic ${LINKER_LIB_FLAGS} -Wl,-Bdynamic
 	endif
 

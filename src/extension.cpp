@@ -270,6 +270,12 @@ public:
 #else
                 false;
 #endif
+        info["standalone"] =
+#ifdef GOTTEXT_STANDALONE
+                true;
+#else
+                false;
+#endif
         return info;
     }
 
