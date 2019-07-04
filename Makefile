@@ -113,7 +113,7 @@ ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
 
 endif
 
-TEST_FILE := test/test.php
+TEST_FILE := ${ROOT_DIR}/test/test.php
 
 ######
 
