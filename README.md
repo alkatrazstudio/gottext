@@ -21,6 +21,7 @@ Table of contents
 * [Uninstall](#uninstall)
 * [Documentation](#documentation)
 * [Tests](#tests)
+* [Benchmark](#benchmark)
 
 
 
@@ -84,7 +85,8 @@ PHP's gettext does not support these functions out of the box.
 
 ### Speed
 
-GotText is 50-90% faster than gettext in some synthetic tests.
+GotText is 50% faster than gettext in some synthetic tests.
+See the [benchmark section](#benchmark) below for more details.
 
 
 ### Extra features
@@ -250,3 +252,40 @@ A self-test for GotText can be found in __test/test.php__. Run the following `ma
 
 * `make test` - test the built extension in your current build directory (in a `dist` subfolder). The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Ubuntu you can disable GotText for PHP CLI by invoking the following command: `sudo phpdismod -s cli gottext`. You can enable it back with `sudo phpenmod -s cli gottext`. This test works also with the extension built via Docker.
 * `make test_installed` - test the installed version of the extension.
+
+
+
+Benchmark
+---------
+
+In the `benchmark` directory there is a test that lets you compare the performance of GotText vs gettext.
+This test translates 100K randomly generated strings, including strings with pluralization, using both engines and then prints out the timings breakdown.
+
+To be able to run the test you need both GotText and gettext PHP extensions installed on your machine.
+Also, Python 3 and gettext CLI tools (msgfmt) are required.
+To install everything above on Ubuntu (except GotText itself) you may run `sudo apt install php-cli php-gettext python3 gettext`.
+
+To start the benchmark, run `benchmark/run.sh` script. The results will be something like this:
+
+                                GotText   gettext
+    ---------------------------------------------
+     cold initialization (ms) -   88         0
+       re-initialization (ms) -    0         0
+        translate 1 pass (ms) -   58       198
+             miss 1 pass (ms) -   41       145
+    translate 100 passes (ms) -   56        88
+         miss 100 passes (ms) -   40       142
+
+The numbers are timings in milliseconds. Description of timings:
+
+* __cold initialization__ - first time initialization. GotText parses MO file when its instance is constructed, but gettext delays loading the file until the actual translation is needed. However, both GotText and gettext only need to load MO file one time, so this timing should not affect the overall performance of the application, unless it spawns a new PHP process on each request.
+
+* __re-initialization__ - initializing the engine again. This only makes sense for GotText. It shows how much time is needed to construct a GotText object that refers to an already loaded MO file. This number should be very small or zero, because GotText does not actually do anything with the file after it was loaded and parsed the first time.
+
+* __translate 1 pass__ - first time translating 100K strings in a row. gettext timing here also includes the time needed to load and parse the MO file. So, for both engines, "cold translation" time is "cold initialization" time plus "translate 1 pass" time.
+
+* __miss 1 pass__ - here, "miss" means the translation attempt that did not succeded, i.e. the translation was not found for a requested string. One pass of "misses" equals to 100K failed translation attempts in a row. This metric may be important if you expect a lot of strings to be untranslated.
+
+* __translate 100 passes__ - the same as "translate 1 pass" but do it 100 times and the timing is the average timing for these attempts. This is the metric that matters the most. It shows the speed of translation when all caches are prepared.
+
+* __miss 100 passes__ - the same as "translate 100 passes" but when all translation attempts fail.
