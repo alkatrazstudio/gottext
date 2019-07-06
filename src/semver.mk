@@ -1,3 +1,0 @@
-VER_MAJ := 1
-VER_MIN := 2
-VER_PAT := 0

@@ -1,10 +1,6 @@
 ROOT_DIR := $(patsubst %/,%,$(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
 SRC_DIR := ${ROOT_DIR}/src
 
-include ${SRC_DIR}/semver.mk
-
-######
-
 NAME := gottext
 TITLE := GotText
 
@@ -18,6 +14,12 @@ EXTENSION := ${NAME}.so
 DIST_DIR := dist
 
 ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
+
+	VER_STR := $(file < ${ROOT_DIR}/VERSION)
+	VER_WORDS := $(subst ., ,${VER_STR})
+	VER_MAJ :=  $(word 1, ${VER_WORDS})
+	VER_MIN :=  $(word 2, ${VER_WORDS})
+	VER_PAT :=  $(word 3, ${VER_WORDS})
 
 	PHP_VER ?= $(shell php-config --version)
 	PHP_VER_SHORT := $(shell ${ECHO} "${PHP_VER}" | sed -e 's/\./ /g')
