@@ -83,15 +83,32 @@ GotText supports alternatives for the following [context-handling functions](htt
 PHP's gettext does not support these functions out of the box.
 
 
+### Extra features
+
+GotText has some extra functionality compared to gettext. For example, it can return all translations as an associative array. See the [documentation](https://alkatrazstudio.gitlab.io/gottext/api/) for a full list of available methods.
+
+
+### No locales
+
+GotText doesn't care about locales. This, however, can be either beneficial or detrimental to your project depending on what you need.
+All GotText does is take an untranslated string as an input and return the corresponding translation from MO file.
+Gettext, on the other hand, makes use of system locales:
+
+* It needs for a corresponding locale with a valid codeset to be present on your system.
+
+* You need to switch your entire application (either thread or process) to the desired locale if you want to translate any string to that locale.
+For example, it makes a process of simultaneous translation to different languages rather awkward.
+Also, changing a locale for an entire process may have unwanted side-effects, since it may affect a code you don't control.
+
+GotText requires none of that. It only needs an MO file. This is a non-intrusive approach. GotText doesn't affect any system settings, and system settings don't affect GotText.
+
+However, if the rest of your application is also using system locales then you might need to consider all pros and cons of GotText not supporting locales.
+
+
 ### Speed
 
 GotText is 50% faster than gettext in some synthetic tests.
 See the [benchmark section](#benchmark) below for more details.
-
-
-### Extra features
-
-GotText has some extra functionality compared to gettext. For example, it can return all translations as an associative array. See the [documentation](https://alkatrazstudio.gitlab.io/gottext/api/) for a full list of available methods.
 
 
 
