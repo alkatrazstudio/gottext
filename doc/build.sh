@@ -14,7 +14,8 @@ DIST_DIR=/tmp/dist
 apigen --quiet generate --source source --destination "$DIST_DIR"
 
 # format docs
-php ./modify.php "$DIST_DIR/class-GotText.html"
+VER_STR="$(< ../VERSION)"
+php ./modify.php "$DIST_DIR/class-GotText.html" "$VER_STR"
 echo "
 #right {
     margin: 0;

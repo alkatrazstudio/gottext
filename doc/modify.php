@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 $filename = $argv[1];
+$version = $argv[2];
 
 // load the document
 $doc = new DOMDocument();
@@ -87,7 +88,7 @@ foreach($labels as $label)
 // change the header and the title
 $header = $doc->getElementsByTagName("h1")->item(0);
 $title = preg_replace("~^Class ~", "", $header->textContent);
-$title = "$title - API reference";
+$title = "$title v$version - API reference";
 $header->textContent = $title;
 $doc->getElementsByTagName("title")->item(0)->textContent = $title;
 
