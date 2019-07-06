@@ -1,0 +1,11 @@
+GotText no locales
+
+utf8 => UTF-8
+
+version => doc
+
+inc version
+
+changelog
+
+git tag version

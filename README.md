@@ -33,7 +33,7 @@ Advantages over PHP's gettext
 This is how you load a translation file in gettext:
 
 ```php
-setlocale(LC_MESSAGES, "ru_RU.utf8");
+setlocale(LC_MESSAGES, "ru_RU.UTF-8");
 bindtextdomain("messages", "./locale");
 textdomain("messages");
 bind_textdomain_codeset("messages", "UTF-8");
@@ -224,7 +224,7 @@ Shadow builds are supported. To enable shadow build just run make from a differe
 For example:
 
 ```bash
-# make a subfolder to hold builf artifacts
+# make a subfolder to hold build artifacts
 mkdir -p shadow
 cd shadow
 
@@ -301,7 +301,7 @@ The numbers are timings in milliseconds. Description of timings:
 
 * __translate 1 pass__ - first time translating 100K strings in a row. gettext timing here also includes the time needed to load and parse the MO file. So, for both engines, "cold translation" time is "cold initialization" time plus "translate 1 pass" time.
 
-* __miss 1 pass__ - here, "miss" means the translation attempt that did not succeded, i.e. the translation was not found for a requested string. One pass of "misses" equals to 100K failed translation attempts in a row. This metric may be important if you expect a lot of strings to be untranslated.
+* __miss 1 pass__ - here, "miss" means the translation attempt that did not succeeded, i.e. the translation was not found for a requested string. One pass of "misses" equals to 100K failed translation attempts in a row. This metric may be important if you expect a lot of strings to be untranslated.
 
 * __translate 100 passes__ - the same as "translate 1 pass" but do it 100 times and the timing is the average timing for these attempts. This is the metric that matters the most. It shows the speed of translation when all caches are prepared.
 
