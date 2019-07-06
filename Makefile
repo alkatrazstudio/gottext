@@ -15,7 +15,7 @@ DIST_DIR := dist
 
 ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
 
-	VER_STR := $(file < ${ROOT_DIR}/VERSION)
+	VER_STR := $(shell cat ${ROOT_DIR}/VERSION)
 	VER_WORDS := $(subst ., ,${VER_STR})
 	VER_MAJ :=  $(word 1, ${VER_WORDS})
 	VER_MIN :=  $(word 2, ${VER_WORDS})
