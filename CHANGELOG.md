@@ -22,10 +22,10 @@ v2.0.0 (July 6, 2019)
 #### Internal changes
 - New versioning system. [f82d6947]
 - Standalone build. [ec604598]
-- Docker builds. [bd6979a3]
-- New doc build system [d49b482e]
-- Support for shadow builds. [b55a85e4, 8a9a906f, 26363175]
 - Ability to specify PHP-CPP directory for a build. [b8b50982]
+- Support for shadow builds. [b55a85e4, 8a9a906f, 26363175]
+- New doc build system [d49b482e]
+- Docker builds and tests. [bd6979a3, 94bcfecd, 387a4d65, d49b482e]
 - Benchmark test. [37b9ffb6]
 - Code modernization. [2f73772c]
 - Tests modernization. [38723963]
