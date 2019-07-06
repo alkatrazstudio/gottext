@@ -6,6 +6,7 @@ GotText is not a drop-in replacement for gettext,
 so read the below notes and [documentation](https://alkatrazstudio.gitlab.io/gottext/api/) before trying to use this extension.
 
 The current version of GotText PHP extension is for PHP 7 on Linux.
+The officially supported PHP versions are 7.2 and 7.3.
 
 This extension is built using [PHP-CPP](https://www.php-cpp.com) framework.
 
