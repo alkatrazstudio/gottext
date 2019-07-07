@@ -43,11 +43,15 @@ ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
 
 	INI := ${NAME}.ini
 	ifndef INI_DIR
-		ifneq ($(shell which ${PHPENMOD} 2>/dev/null),)
-			INI_DIR := /etc/${MODS_SUBDIR}/mods-available
+		ifneq (${PHP_INI_DIR},)
+			INI_DIR := ${PHP_INI_DIR}
 		else
-			ifeq ($(shell test -d /etc/php.d && echo 1), 1)
-				INI_DIR := /etc/php.d
+			ifneq ($(shell which ${PHPENMOD} 2>/dev/null),)
+				INI_DIR := /etc/${MODS_SUBDIR}/mods-available
+			else
+				ifeq ($(shell test -d /etc/php.d && echo 1), 1)
+					INI_DIR := /etc/php.d
+				endif
 			endif
 		endif
 	endif
