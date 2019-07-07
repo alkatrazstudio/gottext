@@ -214,7 +214,7 @@ When invoking `make` to build GotText you may specify the following options:
 * `PHP_VER=x.y` - use PHP version x.y instead of the auto-detected one. This is for internal development only.
 * `PHPCPP_ROOT=<PHP-CPP install directory>` - assume that PHP-CPP root is installed under this diretory. This option adds `$PHPCPP_ROOT/include` to the header search paths, and `$PHPCPP_ROOT/lib` to the library search paths.
 * `STANDALONE=1` - include all library dependencies inside GotText binary, so that it can be used without any external libraries (like Boost or PHP-CPP) at runtime. Note that this only work if all library dependencies are built with `-fPIC` compiler flag.
-* `INI_DIR=<extension configuration files directory>` - specify a directory where `gottext.ini` file needs to be put. You can also use `PHP_INI_DIR` environment variable to specifiy this folder. `INI_DIR` options takes precedence. This path is automatically deducted for Ubuntu and CentOS distributions and for `php` Docker images.
+* `INI_DIR=<extension configuration files directory>` - specify a directory where `gottext.ini` file needs to be put. This path is automatically deducted for Ubuntu and CentOS distributions and also you don't need to specify if for the official PHP Docker images.
 
 You may combine these options. For example, to install a debug thread-safe version of GotText that uses native file reading functions, run the following:
 

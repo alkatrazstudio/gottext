@@ -43,15 +43,11 @@ ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
 
 	INI := ${NAME}.ini
 	ifndef INI_DIR
-		ifneq (${PHP_INI_DIR},)
-			INI_DIR := ${PHP_INI_DIR}
+		ifneq ($(shell which ${PHPENMOD} 2>/dev/null),)
+			INI_DIR := /etc/${MODS_SUBDIR}/mods-available
 		else
-			ifneq ($(shell which ${PHPENMOD} 2>/dev/null),)
-				INI_DIR := /etc/${MODS_SUBDIR}/mods-available
-			else
-				ifeq ($(shell test -d /etc/php.d && echo 1), 1)
-					INI_DIR := /etc/php.d
-				endif
+			ifeq ($(shell test -d /etc/php.d && echo 1), 1)
+				INI_DIR := /etc/php.d
 			endif
 		endif
 	endif
@@ -141,6 +137,10 @@ install:
 	then \
 		${MKDIR} ${INI_DIR}; \
 		${CP} ${SRC_DIR}/${INI} ${INI_DIR}/; \
+	fi
+	if [ -x "$(shell which docker-php-ext-enable)" ]; \
+	then \
+		docker-php-ext-enable gottext; \
 	fi
 
 .PHONY: uninstall
