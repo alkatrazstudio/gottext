@@ -6,8 +6,8 @@ ROOT_DIR="$(pwd)"
 
 PHPCPP_VER=2.1.4
 
-apt update
-DEBIAN_FRONTEND=noninteractive apt install -yq git
+DEBIAN_FRONTEND=noninteractive apt update -yq > /dev/null
+DEBIAN_FRONTEND=noninteractive apt install -yq git > /dev/null
 
 function doWork {
     mkdir deps

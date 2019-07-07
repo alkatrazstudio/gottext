@@ -115,6 +115,13 @@ ifeq ($(filter test test_installed, ${MAKECMDGOALS}),)
 
 endif
 
+LD_LIBRARY_PATH_EX := ${LD_LIBRARY_PATH}
+ifdef PHPCPP_ROOT
+	ifndef STANDALONE
+		LD_LIBRARY_PATH_EX := ${PHPCPP_ROOT}/lib:${LD_LIBRARY_PATH_EX}
+	endif
+endif
+
 TEST_FILE := ${ROOT_DIR}/test/test.php
 
 ######
@@ -150,6 +157,10 @@ uninstall:
 	then \
 		${RM} ${INI_DIR}/${INI}; \
 	fi
+	if [ -x "$(shell which docker-php-ext-enable)" ] && [ -d "${PHP_INI_DIR}" ]; \
+	then \
+		${RM} "${PHP_INI_DIR}"/conf.d/docker-php-ext-gottext.ini; \
+	fi
 
 .PHONY: clean
 clean:
@@ -158,7 +169,7 @@ clean:
 
 .PHONY: test
 test:
-	php -dzend.assertions=1 -dextension=./${DIST_DIR}/${EXTENSION} ${TEST_FILE}
+	LD_LIBRARY_PATH="${LD_LIBRARY_PATH_EX}" php -dzend.assertions=1 -dextension=./${DIST_DIR}/${EXTENSION} ${TEST_FILE}
 
 .PHONY: test_installed
 test_installed:
