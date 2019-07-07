@@ -272,8 +272,8 @@ Tests
 
 A self-test for GotText can be found in __test/test.php__. Run the following `make` targets to perform this test:
 
-* `make test` - test the built extension in your current build directory (in a `dist` subfolder). The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Ubuntu you can disable GotText for PHP CLI by invoking the following command: `sudo phpdismod -s cli gottext`. You can enable it back with `sudo phpenmod -s cli gottext`. This test works also with the extension built via Docker.
-* `make test_installed` - test the installed version of the extension.
+* `make test` - test the built extension in your current build directory (in a `dist` subfolder). The extension should not be enabled for PHP CLI system-wide or else you may expect an undefined behavior. On Ubuntu you can disable GotText for PHP CLI by invoking the following command: `sudo phpdismod -s cli gottext`. You can enable it back with `sudo phpenmod -s cli gottext`. This test works also with the extension built via Docker. You can specify `PHPCPP_ROOT` to help the linker find PHP-CPP libraries (see the description of `PHPCPP_ROOT` option in the "[Installing from source](#installing-from-source)" section).
+* `make test_installed` - test the installed version of the extension. You can't use `PHPCPP_ROOT` option here.
 
 You can also run this test inside a Docker container. Run the script `test/docker-test.sh` to start the test.
 This script will try to detect your currently installed PHP version and run a test against the appropriate Docker image.
