@@ -4,6 +4,7 @@
   - build/build.sh
   - make install
   - make test_installed
+  - build/archive.sh
   - make uninstall
   - make clean
   - DEBIAN_FRONTEND=noninteractive apt install -yq libboost-thread-dev > /dev/null
@@ -20,6 +21,9 @@
   - make PHPCPP_ROOT=/tmp/deps/dist THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1
   - make PHPCPP_ROOT=/tmp/deps/dist test
   - make NATIVE_FILE=1 clean
+  artifacts:
+    paths:
+    - dist/*.tar.xz
 
 build-php72:
   image: php:7.2
