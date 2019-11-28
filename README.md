@@ -239,6 +239,8 @@ make INI_DIR=/foo/bar -f ../Makefile install
 
 If you've already built the extension and want to change some build options, then you should clean the previous build: `make clean`.
 
+After GotText is built you can create an `*.tar.xz` archive with `gottext.so` and `gottext.ini` by running `build/archive.sh`. The resulting archive will be in the `dist` folder.
+
 
 
 Uninstall
