@@ -19,7 +19,7 @@ function doWork {
         pushd PHP-CPP
             git checkout "v$PHPCPP_VER"
 
-            make release STATIC_COMPILER_FLAGS=-fPIC
+            make STATIC_COMPILER_FLAGS=-fPIC
             make install INSTALL_PREFIX="$DEPS_ROOT"
         popd
 
