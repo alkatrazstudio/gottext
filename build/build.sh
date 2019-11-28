@@ -4,7 +4,7 @@ cd "$(dirname -- "$(readlink -f -- "$0")")"
 cd ..
 ROOT_DIR="$(pwd)"
 
-PHPCPP_VER=2.1.4
+PHPCPP_VER=2.2.0
 
 DEBIAN_FRONTEND=noninteractive apt update -yq > /dev/null
 DEBIAN_FRONTEND=noninteractive apt install -yq git > /dev/null
