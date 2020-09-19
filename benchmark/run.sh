@@ -15,7 +15,7 @@ then
     msgfmt ru_RU.po -o locale/ru_RU/LC_MESSAGES/messages.mo
 fi
 
-readarray GOTTEXT_RESULTS <<< "$(php bench.php gottext yes)"
+readarray GOTTEXT_RESULTS <<< "$(php -dextension="../dist/gottext.so" bench.php gottext yes)"
 readarray GETTEXT_RESULTS <<< "$(php bench.php gettext no)"
 
 printf "%35s%10s\n" GotText gettext
