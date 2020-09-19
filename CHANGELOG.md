@@ -1,6 +1,14 @@
 GotText changelog
 =================
 
+v2.0.1 (September 19, 2020)
+---------------------
+
+#### New features
+- Support for PHP 7.4. [e1600a1b]
+
+
+
 v2.0.0 (July 6, 2019)
 ---------------------
 
