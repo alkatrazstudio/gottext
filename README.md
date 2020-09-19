@@ -106,12 +106,6 @@ GotText requires none of that. It only needs an MO file. This is a non-intrusive
 However, if the rest of your application is also using system locales then you might need to consider all pros and cons of GotText not supporting locales.
 
 
-### Speed
-
-GotText is 50% faster than gettext in some synthetic tests.
-See the [benchmark section](#benchmark) below for more details.
-
-
 
 Unsupported gettext features
 ----------------------------
