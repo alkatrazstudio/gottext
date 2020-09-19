@@ -1,6 +1,7 @@
 .build-steps: &build-steps
   stage: build
   script:
+  - build/bootstrap.sh
   - build/build.sh
   - make install
   - make test_installed
@@ -8,18 +9,18 @@
   - make uninstall
   - make clean
   - DEBIAN_FRONTEND=noninteractive apt install -yq libboost-thread-dev > /dev/null
-  - make PHPCPP_ROOT=/tmp/deps/dist THREAD_SAFE=1
-  - make PHPCPP_ROOT=/tmp/deps/dist test
+  - make PHPCPP_ROOT=/deps/dist THREAD_SAFE=1
+  - make PHPCPP_ROOT=/deps/dist test
   - make clean
-  - make PHPCPP_ROOT=/tmp/deps/dist NATIVE_FILE=1
-  - make PHPCPP_ROOT=/tmp/deps/dist test
+  - make PHPCPP_ROOT=/deps/dist NATIVE_FILE=1
+  - make PHPCPP_ROOT=/deps/dist test
   - make NATIVE_FILE=1 clean
   - DEBIAN_FRONTEND=noninteractive apt install -yq libboost-regex-dev > /dev/null
-  - make PHPCPP_ROOT=/tmp/deps/dist BOOST_REGEX=1
-  - make PHPCPP_ROOT=/tmp/deps/dist test
+  - make PHPCPP_ROOT=/deps/dist BOOST_REGEX=1
+  - make PHPCPP_ROOT=/deps/dist test
   - make clean
-  - make PHPCPP_ROOT=/tmp/deps/dist THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1
-  - make PHPCPP_ROOT=/tmp/deps/dist test
+  - make PHPCPP_ROOT=/deps/dist THREAD_SAFE=1 NATIVE_FILE=1 DEBUG=1 BOOST_REGEX=1
+  - make PHPCPP_ROOT=/deps/dist test
   - make NATIVE_FILE=1 clean
   artifacts:
     paths:

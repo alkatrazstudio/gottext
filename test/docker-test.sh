@@ -11,7 +11,7 @@ then
     PHP_VER="$(php-config --version | grep -Po '^\d+\.\d+')"
 fi
 
-docker run \
+sudo docker run \
     --rm \
     -v"$ROOT_DIR":/gottext \
     -w /gottext \

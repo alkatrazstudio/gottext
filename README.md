@@ -203,7 +203,8 @@ sudo phpenmod gottext
 
 After enabling the extension you may need to restart your web server and/or PHP process manager (e.g. PHP-FPM).
 
-The actual build process that happens inside Docker container is described in `build/build.sh`.
+The actual build process that happens inside Docker container is described in
+`build/booststrap.sh` and `build/build.sh`.
 
 When invoking `make` to build GotText you may specify the following options:
 

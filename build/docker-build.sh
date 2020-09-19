@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -e
-THIS_DIR="$(dirname -- "$(readlink -f -- "$0")")"
-cd "$THIS_DIR/.."
-ROOT_DIR="$(pwd)"
+cd "$(dirname -- "$(readlink -f -- "$0")")"
+ROOT_DIR="$(pwd)/.."
 
 PHP_VER="$1"
 
@@ -11,10 +10,13 @@ then
     PHP_VER="$(php-config --version | grep -Po '^\d+\.\d+')"
 fi
 
-docker run \
+IMAGE_NAME="gottext-build-$PHP_VER"
+
+sudo docker build -t "$IMAGE_NAME" -f Dockerfile --build-arg PHP_VER="$PHP_VER" .
+
+sudo docker run \
     --rm \
     -v"$ROOT_DIR":/gottext \
     -w /gottext \
-    -e "USER_UID=$(id -u)" \
-    -e "USER_GID=$(id -g)" \
-    php:"$PHP_VER" bash /gottext/build/build.sh
+    -u "$(id -u):$(id -g)" \
+    "$IMAGE_NAME" bash /gottext/build/build.sh
