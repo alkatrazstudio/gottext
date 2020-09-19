@@ -6,7 +6,7 @@ GotText is not a drop-in replacement for gettext,
 so read the below notes and [documentation](https://alkatrazstudio.gitlab.io/gottext/api/) before trying to use this extension.
 
 The current version of GotText PHP extension is for PHP 7 on Linux.
-The officially supported PHP versions are 7.2 and 7.3.
+Currently supported PHP versions are 7.2, 7.3 and 7.4.
 
 This extension is built using [PHP-CPP](https://www.php-cpp.com) framework.
 
@@ -184,7 +184,7 @@ The list of possible tags can be found here: https://hub.docker.com/_/php.
 After running `docker-build.sh` the extension will be located at `dist/gottext.so`.
 You can then install it via `make install`.
 
-Usage example of `docker-build.sh` for building GotText for PHP 7.2:
+Usage example of `docker-build.sh` for building GotText for PHP 7.4:
 
 ```bash
 # get the source code of GotText
@@ -192,7 +192,7 @@ git clone https://gitlab.com/alkatrazstudio/gottext.git
 cd gottext
 
 # start the Docker build (the version number can be omitted)
-build/docker-build.sh 7.2
+build/docker-build.sh 7.4
 
 # install the extension
 sudo make install
@@ -282,11 +282,11 @@ You can also run this test inside a Docker container. Run the script `test/docke
 This script will try to detect your currently installed PHP version and run a test against the appropriate Docker image.
 However, you can specify a different PHP version number, the same way as in [build instructions](#installing-from-source) for a `build/docker-build.sh` script.
 
-Example of building the GotText extension for PHP 7.3 and then performing a test:
+Example of building the GotText extension for PHP 7.4 and then performing a test:
 
 ```bash
-build/docker-build.sh 7.3
-test/docker-test.sh 7.3
+build/docker-build.sh 7.4
+test/docker-test.sh 7.4
 ```
 
 
