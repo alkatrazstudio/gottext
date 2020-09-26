@@ -182,7 +182,7 @@ Usage example of `docker-build.sh` for building GotText for PHP 7.4:
 
 ```bash
 # get the source code of GotText
-git clone https://gitlab.com/alkatrazstudio/gottext.git
+git clone https://github.com/alkatrazstudio/gottext.git
 cd gottext
 
 # start the Docker build (the version number can be omitted)

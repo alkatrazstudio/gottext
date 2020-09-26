@@ -10,7 +10,7 @@
 
 /**
  * GotText - a translation engine with gettext-like features.
- * <a href="https://gitlab.com/alkatrazstudio/gottext" target="_blank" rel="noreferrer">https://gitlab.com/alkatrazstudio/gottext</a>
+ * <a href="https://github.com/alkatrazstudio/gottext" target="_blank" rel="noreferrer">https://github.com/alkatrazstudio/gottext</a>
  */
 class GotText {
 
