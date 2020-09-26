@@ -2,10 +2,10 @@ GotText changelog
 =================
 
 v2.0.1 (September 19, 2020)
----------------------
+---------------------------
 
 #### New features
-- Support for PHP 7.4. [e1600a1b]
+- Support for PHP 7.4.
 
 
 
@@ -13,30 +13,30 @@ v2.0.0 (July 6, 2019)
 ---------------------
 
 #### Breaking changes
-- PHP 5 support is dropped. [d5d5d3bc]
+- PHP 5 support is dropped.
 
 #### New features
-- `standalone` field in `getInfo()`. [c35c0003]
+- `standalone` field in `getInfo()`.
 
 #### Improvements
-- Updates for plural functions from [here](https://github.com/translate/l10n-guide/commits/master/docs/l10n/pluralforms.rst). [4f539a3b]
-- Visually reworked documentation. [d49b482e]
-- Stability optimizations. [fcd3b86d]
-- Small memory consumption optimizations. [02f04114]
+- Updates for plural functions from [here](https://github.com/translate/l10n-guide/commits/master/docs/l10n/pluralforms.rst).
+- Visually reworked documentation.
+- Stability optimizations.
+- Small memory consumption optimizations.
 
 #### Bugfixes
-- Fixed errors and inconsistencies in plural functions. [4f539a3b]
+- Fixed errors and inconsistencies in plural functions.
 
 #### Internal changes
-- New versioning system. [f82d6947]
-- Standalone build. [ec604598]
-- Ability to specify PHP-CPP directory for a build. [b8b50982]
-- Support for shadow builds. [b55a85e4, 8a9a906f, 26363175]
-- New doc build system [d49b482e]
-- Docker builds and tests. [bd6979a3, 94bcfecd, 387a4d65, d49b482e]
-- Benchmark test. [37b9ffb6]
-- Code modernization. [2f73772c]
-- Tests modernization. [38723963]
+- New versioning system.
+- Standalone build.
+- Ability to specify PHP-CPP directory for a build.
+- Support for shadow builds.
+- New doc build system
+- Docker builds and tests.
+- Benchmark test.
+- Code modernization.
+- Tests modernization.
 
 
 

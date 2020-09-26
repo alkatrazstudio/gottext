@@ -4,8 +4,9 @@ cd "$(dirname -- "$(readlink -f -- "$0")")"
 cd ..
 ROOT_DIR="$(pwd)"
 
+VERSION="$(<VERSION)"
 PHP_VER="$(php-config --version | sed -r 's/^([0-9]+)\.([0-9]+).*/\1\2/')"
-ARCHIVE_NAME="gottext_php$PHP_VER"
+ARCHIVE_NAME="gottext-php$PHP_VER-v$VERSION"
 TMP_DIR="$ARCHIVE_NAME"
 ARCHIVE_FILENAME="$ROOT_DIR/dist/$ARCHIVE_NAME.tar.xz"
 
