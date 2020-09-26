@@ -1,6 +1,14 @@
 GotText changelog
 =================
 
+v2.0.2 (September 26, 2020)
+---------------------------
+
+#### Internal changes
+- Using GitHub Actions for CI
+
+
+
 v2.0.1 (September 19, 2020)
 ---------------------------
 
