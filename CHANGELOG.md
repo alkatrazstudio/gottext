@@ -1,6 +1,15 @@
 GotText changelog
 =================
 
+v2.0.3 (September 27, 2020)
+---------------------------
+
+#### Internal changes
+- Filesize and speed improvements
+- IDE stubs added to the archive
+
+
+
 v2.0.2 (September 26, 2020)
 ---------------------------
 
