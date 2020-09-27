@@ -21,7 +21,7 @@ pushd /tmp
     pushd PHP-CPP
         git checkout "$PHPCPP_VER"
 
-        make release STATIC_COMPILER_FLAGS="-fPIC -fno-strict-aliasing"
+        make release STATIC_COMPILER_FLAGS="-fPIC -fno-strict-aliasing" SHARED_COMPILER_FLAGS="-fPIC -fno-strict-aliasing"
         make install INSTALL_PREFIX="$DEPS_ROOT"
     popd
     rm -rf PHP-CPP
