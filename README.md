@@ -18,6 +18,7 @@ Table of contents
 * [Unsupported gettext features](#unsupported-gettext-features)
 * [open_basedir support](#open_basedir-support)
 * [Example usage](#example-usage)
+* [Download](#download)
 * [Installing from source](#installing-from-source)
 * [Uninstall](#uninstall)
 * [Documentation](#documentation)
@@ -166,6 +167,18 @@ echo __("Hello, World!");
 
 
 
+Download
+--------
+
+You can download the latest version of GotText from [GitHub releases](https://github.com/alkatrazstudio/gottext/releases/latest).
+The `*.tar.xz` archive will contain the following files:
+
+* `gottext.so` - the PHP extension
+* `gottext.ini` - INI file that enables the extension
+* `gottext.php` - PHP stubs for IDE autocomplete and help
+
+
+
 Installing from source
 ----------------------
 
@@ -234,7 +247,9 @@ make INI_DIR=/foo/bar -f ../Makefile install
 
 If you've already built the extension and want to change some build options, then you should clean the previous build: `make clean`.
 
-After GotText is built you can create an `*.tar.xz` archive with `gottext.so` and `gottext.ini` by running `build/archive.sh`. The resulting archive will be in the `dist` folder.
+After GotText is built you can create a distribution `*.tar.xz`-archive by running `build/archive.sh`.
+The resulting archive will be in the `dist` folder.
+The contents of the archive is described in the [Download](#download) section.
 
 
 

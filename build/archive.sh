@@ -16,6 +16,7 @@ mkdir -p "$TMP_DIR"
 
 cp "$ROOT_DIR/dist/gottext.so" "$TMP_DIR/"
 cp "$ROOT_DIR/src/gottext.ini" "$TMP_DIR/"
+cp "$ROOT_DIR/doc/source/gottext.php" "$TMP_DIR"
 
 rm -f "$ARCHIVE_FILENAME"
 XZ_OPT=-e9 tar -cJf "$ARCHIVE_FILENAME" "$TMP_DIR"
